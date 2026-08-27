@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日历</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .calendar-day { transition: all 0.2s; }
+        .calendar-day:hover { background-color: #f3f4f6; }
+        .selected-day { background-color: #e0e7ff !important; border: 2px solid #4f46e5; }
+        .today-badge { background-color: #4f46e5; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl overflow-hidden flex flex-col md:flex-row h-[80vh]">
+        
+        <!-- 左侧：日历网格 -->
+        <div class="flex-1 flex flex-col p-6">
+            <!-- 头部控制 -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="month-year" class="text-xl font-bold text-gray-800"></h2>
+                <div class="flex space-x-2">
+                    <button id="prev-month" class="p-2 hover:bg-gray-100 rounded-lg text-gray-600"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button id="today-btn" class="px-3 py-1 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">今天</button>
+                    <button id="next-month" class="p-2 hover:bg-gray-100 rounded-lg text-gray-600"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- 星期头 -->
+            <div class="grid grid-cols-7 mb-2">
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">日</div>
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">一</div>
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">二</div>
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">三</div>
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">四</div>
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">五</div>
+                <div class="text-center text-xs font-semibold text-gray-400 py-2">六</div>
+            </div>
+
+            <!-- 日期网格 -->
+            <div id="calendar-grid" class="grid grid-cols-7 flex-grow gap-1">
+                <!-- JS生成 -->
+            </div>
+        </div>
+
+        <!-- 右侧：事件列表 -->
+        <div class="w-full md:w-80 bg-gray-50 border-t md:border-t-0 md:border-l border-gray-200 p-6 flex flex-col">
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-800" id="selected-date-title">选择日期</h3>
+                <p class="text-xs text-gray-500 mt-1" id="selected-date-subtitle"></p>
+            </div>
+
+            <div id="event-list" class="flex-1 overflow-y-auto space-y-3 pr-1">
+                <!-- 事件项 -->
+            </div>
+
+            <button id="add-event-btn" class="mt-4 w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-plus"></i> 添加日程
+            </button>
+        </div>
+    </div>
+
+    <!-- 添加事件模态框 -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-sm p-6 transform transition-all scale-100">
+            <h3 class="text-lg font-bold mb-4">新建日程</h3>
+            <form id="event-form" class="space-y-4">
+                <input type="hidden" id="event-id">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">标题</label>
+                    <input type="text" id="event-title" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">开始</label>
+                        <input type="time" id="event-start" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">结束</label>
+                        <input type="time" id="event-end" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-2 mt-6">
+                    <button type="button" id="cancel-btn" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">取消</button>
+                    <button type="submit" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const state = {
+            currentDate: new Date(),
+            selectedDate: new Date(),
+            events: JSON.parse(localStorage.getItem('simple_calendar_events')) || []
+        };
+
+        const els = {
+            monthYear: document.getElementById('month-year'),
+            grid: document.getElementById('calendar-grid'),
+            prev: document.getElementById('prev-month'),
+            next: document.getElementById('next-month'),
+            today: document.getElementById('today-btn'),
+            eventList: document.getElementById('event-list'),
+            selectedTitle: document.getElementById('selected-date-title'),
+            selectedSub: document.getElementById('selected-date-subtitle'),
+            addBtn: document.getElementById('add-event-btn'),
+            modal: document.getElementById('modal'),
+            form: document.getElementById('event-form'),
+            cancelBtn: document.getElementById('cancel-btn'),
+            titleInput: document.getElementById('event-title'),
+            startInput: document.getElementById('event-start'),
+            endInput: document.getElementById('event-end'),
+            idInput: document.getElementById('event-id')
+        };
+
+        function init() {
+            render();
+            setupListeners();
+        }
+
+        function render() {
+            renderCalendar();
+            renderEvents();
+        }
+
+        function renderCalendar() {
+            const year = state.currentDate.getFullYear();
+            const month = state.currentDate.getMonth();
+            
+            els.monthYear.textContent = `${year}年 ${month + 1}月`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const prevDays = new Date(year, month, 0).getDate();
+
+            els.grid.innerHTML = '';
+
+            // 上月补位
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const d = document.createElement('div');
+                d.className = 'h-10 md:h-14 flex items-center justify-center text-gray-300 text-sm';
+                d.textContent = prevDays - i;
+                els.grid.appendChild(d);
+            }
+
+            // 当月日期
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const date = new Date(year, month, i);
+                const isToday = date.toDateString() === today.toDateString();
+                const isSelected = date.toDateString() === state.selectedDate.toDateString();
+                const hasEvent = state.events.some(e => e.date === formatDate(date));
+
+                const d = document.createElement('div');
+                d.className = `calendar-day h-10 md:h-14 flex flex-col items-center justify-center relative cursor-pointer rounded-lg ${isSelected ? 'selected-day' : ''}`;
+                d.onclick = () => selectDate(date);
+
+                const dayNum = document.createElement('span');
+                dayNum.className = isToday ? 'today-badge' : 'text-sm font-medium text-gray-700';
+                dayNum.textContent = i;
+                d.appendChild(dayNum);
+
+                if (hasEvent && !isSelected) {
+                    const dot = document.createElement('div');
+                    dot.className = 'w-1.5 h-1.5 bg-indigo-500 rounded-full absolute bottom-2';
+                    d.appendChild(dot);
+                }
+
+                els.grid.appendChild(d);
+            }
+        }
+
+        function renderEvents() {
+            const dateStr = formatDate(state.selectedDate);
+            els.selectedTitle.textContent = `${state.selectedDate.getMonth() + 1}月${state.selectedDate.getDate()}日`;
+            els.selectedSub.textContent = state.selectedDate.toLocaleDateString('zh-CN', { weekday: 'long' });
+
+            const dayEvents = state.events.filter(e => e.date === dateStr).sort((a,b) => a.start.localeCompare(b.start));
+            els.eventList.innerHTML = '';
+
+            if (dayEvents.length === 0) {
+                els.eventList.innerHTML = '<div class="text-center text-gray-400 py-10 text-sm">暂无日程</div>';
+                return;
+            }
+
+            dayEvents.forEach(evt => {
+                const item = document.createElement('div');
+                item.className = 'bg-white p-3 rounded-lg shadow-sm border border-gray-100 flex justify-between items-center group';
+                item.innerHTML = `
+                    <div>
+                        <div class="font-medium text-gray-800 text-sm">${evt.title}</div>
+                        <div class="text-xs text-gray-500 mt-1">${evt.start} - ${evt.end}</div>
+                    </div>
+                    <button class="text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition delete-btn" data-id="${evt.id}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                item.querySelector('.delete-btn').onclick = (e) => {
+                    e.stopPropagation();
+                    deleteEvent(evt.id);
+                };
+                els.eventList.appendChild(item);
+            });
+        }
+
+        function selectDate(date) {
+            state.selectedDate = date;
+            render();
+        }
+
+        function formatDate(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function setupListeners() {
+            els.prev.onclick = () => {
+                state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+                render();
+            };
+            els.next.onclick = () => {
+                state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+                render();
+            };
+            els.today.onclick = () => {
+                state.currentDate = new Date();
+                state.selectedDate = new Date();
+                render();
+            };
+
+            els.addBtn.onclick = () => {
+                els.modal.classList.remove('hidden');
+                els.modal.classList.add('flex');
+                els.form.reset();
+                els.idInput.value = '';
+                els.startInput.value = '09:00';
+                els.endInput.value = '10:00';
+            };
+
+            els.cancelBtn.onclick = () => {
+                els.modal.classList.add('hidden');
+                els.modal.classList.remove('flex');
+            };
+
+            els.form.onsubmit = (e) => {
+                e.preventDefault();
+                const newEvent = {
+                    id: Date.now(),
+                    date: formatDate(state.selectedDate),
+                    title: els.titleInput.value,
+                    start: els.startInput.value,
+                    end: els.endInput.value
+                };
+                state.events.push(newEvent);
+                saveEvents();
+                els.modal.classList.add('hidden');
+                els.modal.classList.remove('flex');
+                render();
+            };
+        }
+
+        function deleteEvent(id) {
+            if(confirm('确定删除此日程？')) {
+                state.events = state.events.filter(e => e.id !== id);
+                saveEvents();
+                render();
+            }
+        }
+
+        function saveEvents() {
+            localStorage.setItem('simple_calendar_events', JSON.stringify(state.events));
+        }
+
+        init();
+    </script>
+</body>
+</html>
