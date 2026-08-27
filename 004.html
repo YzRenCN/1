@@ -1,147 +1,177 @@
-<!-- 顶部区域：标题与搜索 -->
-<header class="bg-[#de2910] text-white shadow-md">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <!-- 左侧标题 -->
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-[#ffde00] rounded-sm flex items-center justify-center text-[#de2910] font-bold text-xl shadow-sm">☭</div>
-            <span class="font-bold text-2xl tracking-tight">☭</span>
-        </div>
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的个人主页 - YZRisME</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Font Awesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 自定义渐变背景动画 */
+        @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient-bg 15s ease infinite;
+        }
+        /* 玻璃拟态效果 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        /* 链接悬停下划线动画 */
+        .link-hover {
+            position: relative;
+        }
+        .link-hover::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .link-hover:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen flex flex-col items-center justify-center p-4 font-sans text-gray-800 animate-gradient">
 
-        <!-- 右侧百度搜索框 -->
-        <form action="https://www.baidu.com/s" target="_blank" class="search-container">
-            <input type="text" name="wd" class="search-input" placeholder="百度全网搜索..." autocomplete="off">
-            <button type="submit" class="search-btn">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
-</header>
-
-<!-- 主要内容区 -->
-<main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-    
-    <!-- 欢迎标语区域 -->
-    <div class="mb-12 text-center md:text-left">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">欢迎来到我的网页 😀</h1>
-        <p class="text-lg text-gray-600 max-w-2xl leading-relaxed">
-            爱国，敬业，诚信，友善。
-        </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- 主容器 -->
+    <main class="w-full max-w-2xl glass-effect rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-3xl">
         
-        <!-- 左侧：主要链接列表 -->
-        <div class="md:col-span-2 space-y-8">
+        <!-- 头部区域：标题与搜索 -->
+        <header class="p-8 bg-white/50 border-b border-gray-100">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6">
+                欢迎来到我的网页
+            </h1>
             
-            <!-- 常用服务 -->
-            <section>
-                <h2 class="section-title">常用服务</h2>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <a href="https://huanyexuan.xyz/zhiren.html" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-search text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">智人搜索</span>
+            <!-- 百度搜索框模块 -->
+            <div class="max-w-lg mx-auto relative group">
+                <form action="https://www.baidu.com/s" method="get" target="_blank" class="flex items-center">
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400 group-focus-within:text-blue-500 transition-colors"></i>
                         </div>
-                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
-                    </a>
-                    <div class="border-t border-gray-50"></div>
-                    <a href="https://yzrencn.github.io/1/" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-robot text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">旧版</span>
-                        </div>
-                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
-                    </a>
-                    <div class="border-t border-gray-50"></div>
-                    <a href="https://yzrencn.github.io/1/rili.html" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="far fa-calendar-alt text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">日历查询</span>
-                        </div>
-                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
-                    </a>
-                </div>
-            </section>
+                        <input 
+                            type="text" 
+                            name="wd" 
+                            placeholder="百度搜索..." 
+                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-l-full leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 sm:text-sm"
+                            required
+                        >
+                    </div>
+                    <button 
+                        type="submit" 
+                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-r-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 shadow-md hover:shadow-lg"
+                    >
+                        搜索
+                    </button>
+                </form>
+            </div>
+        </header>
 
-            <!-- 个人项目与互动 -->
-            <section>
-                <h2 class="section-title">个人项目与互动</h2>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-                    <a href="https://yzrencn.github.io/1/001.html" target="_blank" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="far fa-id-card text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">我的公开</span>
-                        </div>
-                        <i class="fas fa-external-link-alt text-xs text-gray-300"></i>
-                    </a>
-                    <div class="border-t border-gray-50"></div>
-                    <a href="https://yzrhyx.lofter.com" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-pen-nib text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">博客 </span>
-                        </div>
-                        <i class="fas fa-external-link-alt text-xs text-gray-300"></i>
-                    </a>
-                    <div class="border-t border-gray-50"></div>
-                    <a href="https://yzrencn.github.io/1/liuyan.html" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="far fa-comments text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">测试留言板</span>
-                        </div>
-                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
-                    </a>
-                    <div class="border-t border-gray-50"></div>
-                    <a href="https://yzrencn.github.io/1/tksj_game.html" class="portal-link block p-4 flex items-center justify-between group">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-gamepad text-gray-400 group-hover:text-[#de2910]"></i>
-                            <span class="font-medium">飞机游戏</span>
-                        </div>
-                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
-                    </a>
-                </div>
-            </section>
-
-        </div>
-
-        <!-- 右侧：侧边栏信息 -->
-        <div class="space-y-8">
+        <!-- 核心内容区域 -->
+        <div class="p-8 space-y-8">
             
-            <!-- 快速操作 -->
-            <section class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                <h2 class="section-title mb-4">快速操作</h2>
-                <div class="space-y-3">
-                    <a href="https://yzrencn.github.io/1/help.html" class="block w-full text-center py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-colors">
-                        联系我
+            <!-- 价值观标语 -->
+            <section class="text-center">
+                <div class="inline-block p-4 rounded-lg bg-gradient-to-r from-red-50 to-orange-50 border border-red-100 shadow-sm">
+                    <h2 class="text-xl font-bold text-red-600 tracking-wide">
+                        <i class="fas fa-heart mr-2"></i>爱国，敬业，诚信，友善。
+                    </h2>
+                </div>
+            </section>
+
+            <!-- 主要链接导航 (网格布局) -->
+            <section>
+                <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                    <i class="fas fa-link mr-2 text-blue-500"></i> 快速导航
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a href="https://huanyexuan.xyz/zhiren.html" class="group flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-blue-600">智人搜索</span>
                     </a>
-                    <a href="https://yzrencn.github.io/3/1.html" class="block w-full text-center py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-colors">
-                        切换到繁体中文
+
+                    <a href="https://yzrencn.github.io/1/help.html" class="group flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-green-200 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-green-600">联系我</span>
+                    </a>
+
+                    <a href="https://yzrhyx.lofter.com" class="group flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-purple-200 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mr-3 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-purple-600">博客</span>
+                    </a>
+
+                    <a href="https://yzrencn.github.io/1/rili.html" class="group flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 mr-3 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-orange-600">日历</span>
+                    </a>
+
+                    <a href="https://yzrencn.github.io/1/tksj_game.html" class="group flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 hover:border-indigo-200 transition-all duration-300 transform hover:-translate-y-1 sm:col-span-2">
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <span class="font-medium text-gray-700 group-hover:text-indigo-600">飞机游戏</span>
                     </a>
                 </div>
             </section>
 
-            <!-- 资源 -->
-            <section class="bg-[#de2910] rounded-lg shadow-md p-6 text-white">
-                <h2 class="text-white/80 text-xs font-bold uppercase tracking-wider mb-4">推荐资源</h2>
-                <p class="text-sm text-white/90 mb-4">访问更多存储资源与文件分享。</p>
-                <a href="https://yangrenhyx.ysepan.com/" target="_blank" class="block w-full bg-white text-[#de2910] text-center py-2 px-4 rounded-md text-sm font-bold hover:bg-gray-100 transition-colors shadow-sm">
-                    访问 
+            <hr class="border-gray-200" />
+
+            <!-- 更多资源 -->
+            <section class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">更多资源链接</h3>
+                <a href="https://yangrenhyx.ysepan.com/" target="_blank" rel="noopener noreferrer" class="link-hover text-blue-600 hover:text-blue-800 font-medium break-all">
+                    https://yangrenhyx.ysepan.com
                 </a>
             </section>
 
         </div>
-    </div>
-</main>
 
-<!-- 页脚 -->
-<footer class="bg-white border-t border-gray-200 mt-auto">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-sm text-gray-500">
-                &copy; 版权所有
+        <!-- 页脚信息 -->
+        <footer class="bg-gray-50 p-6 border-t border-gray-100 text-center text-sm text-gray-600">
+            <div class="mb-4">
+                <span class="text-gray-500">出自：</span>
+                <a href="https://github.com/YzRenCN/" target="_blank" rel="noopener noreferrer" class="font-bold text-gray-800 hover:text-blue-600 transition-colors link-hover">
+                    YZRisME
+                </a>
             </div>
-            <div class="flex items-center gap-6 text-sm text-gray-500">
-                <span>出自：<a href="https://github.com/YzRenCN/" target="_blank" class="text-[#de2910] hover:underline font-medium">GitHub</a></span>
+            
+            <div class="font-bold text-gray-700 mb-4">版权所有 &copy; 2026</div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mt-4">
+                <a href="https://yzrencn.github.io/1/001.html" class="px-3 py-1 rounded-full bg-white border border-gray-200 text-xs font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all">
+                    我的公开
+                </a>
+                <a href="https://yzrencn.github.io/3/1.html" class="px-3 py-1 rounded-full bg-white border border-gray-200 text-xs font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all">
+                    切换到繁体
+                </a>
+                <a href="https://yzrencn.github.io/1/004.html" class="px-3 py-1 rounded-full bg-white border border-gray-200 text-xs font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition-all">
+                    AI新版
+                </a>
             </div>
-        </div>
-    </div>
-</footer>
+        </footer>
+    </main>
+
+</body>
+</html>
