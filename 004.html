@@ -1,376 +1,147 @@
-这是为您美化后的HTML页面。它保留了原始内容，并采用了现代化的卡片式布局、柔和的配色和精致的悬停效果，使页面更清晰、美观且富有亲和力。
-```html
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我的小站 · 雅致版</title>
-  <!-- 使用清爽的字体与柔和色调 -->
-  <style>
-    /* 全局重置与基础 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<!-- 顶部区域：标题与搜索 -->
+<header class="bg-[#de2910] text-white shadow-md">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- 左侧标题 -->
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#ffde00] rounded-sm flex items-center justify-center text-[#de2910] font-bold text-xl shadow-sm">☭</div>
+            <span class="font-bold text-2xl tracking-tight">☭</span>
+        </div>
 
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', sans-serif;
-      background: linear-gradient(145deg, #f7f9fc 0%, #eef2f6 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 1.5rem;
-      margin: 0;
-    }
+        <!-- 右侧百度搜索框 -->
+        <form action="https://www.baidu.com/s" target="_blank" class="search-container">
+            <input type="text" name="wd" class="search-input" placeholder="百度全网搜索..." autocomplete="off">
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+</header>
 
-    /* 主卡片 — 柔和光影，圆润舒适 */
-    .card {
-      max-width: 780px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      background: #fffffffc;
-      border-radius: 42px;
-      padding: 2.8rem 2.5rem;
-      box-shadow: 
-        0 20px 40px -12px rgba(0, 20, 30, 0.15),
-        0 8px 24px -6px rgba(0, 0, 0, 0.05),
-        inset 0 1px 1px rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      transition: all 0.25s ease;
-    }
-
-    /* 标题区域 — 优雅居中对齐 */
-    .hero-title {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-title span {
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      background: linear-gradient(135deg, #2d3e50 0%, #1f2a36 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
-      padding: 0.2rem 0.8rem;
-      border-radius: 60px;
-      background-color: #f0f4fa;
-      box-shadow: inset 0 -2px 0 #cbd5e1;
-    }
-
-    /* 分割线 — 细腻装饰 */
-    hr {
-      border: none;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #b8c9dd, #a0b6ce, #b8c9dd, transparent);
-      margin: 1.5rem 0 1.8rem 0;
-      opacity: 0.5;
-      border-radius: 4px;
-    }
-
-    hr:last-of-type {
-      margin-top: 2rem;
-    }
-
-    /* 图片容器 — 圆形柔光 + 悬浮动效 */
-    .avatar-wrapper {
-      display: flex;
-      justify-content: center;
-      margin: 0.8rem 0 1.8rem 0;
-    }
-
-    .avatar-wrapper img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 12px 28px -8px rgba(0, 40, 60, 0.2), 0 4px 12px rgba(0,0,0,0.04);
-      border: 3px solid rgba(255, 255, 255, 0.7);
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-      display: block;
-      background: #eef3f9;
-      cursor: default;
-    }
-
-    .avatar-wrapper img:hover {
-      transform: scale(1.02) rotate(-1deg);
-      box-shadow: 0 20px 32px -12px rgba(28, 58, 80, 0.3);
-    }
-
-    /* 核心价值观 — 用卡片标签呈现 */
-    .values-tag {
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: #1e2b39;
-      background: #ecf2f9;
-      padding: 0.65rem 1.2rem;
-      border-radius: 60px;
-      display: inline-block;
-      margin: 0 auto 0.2rem auto;
-      letter-spacing: 2px;
-      box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.6);
-    }
-
-    .values-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    /* 链接组 — 卡片式按钮，清爽悬停 */
-    .link-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem 1.2rem;
-      margin: 1.4rem 0 0.6rem 0;
-    }
-
-    .link-grid a {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 1.4rem;
-      background: #f2f6fd;
-      border-radius: 40px;
-      font-size: 1rem;
-      font-weight: 490;
-      color: #1f3347;
-      text-decoration: none;
-      border: 1px solid #dae3ed;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.01);
-      letter-spacing: 0.3px;
-      line-height: 1.4;
-    }
-
-    .link-grid a:hover {
-      background: #ffffff;
-      border-color: #8aa4c0;
-      box-shadow: 0 8px 18px -8px rgba(32, 60, 90, 0.15);
-      transform: translateY(-2px);
-      color: #0b1a2a;
-      text-decoration: none;
-    }
-
-    .link-grid a:active {
-      transform: scale(0.97);
-    }
-
-    /* 特殊资源链接行 — 融入网格 */
-    .resource-line {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: center;
-      gap: 0.3rem 0.6rem;
-      margin: 0.8rem 0 0.2rem 0;
-      background: #f1f6fd;
-      padding: 0.6rem 1.2rem;
-      border-radius: 60px;
-      border: 1px solid #dce6f0;
-    }
-
-    .resource-line strong {
-      color: #1f374b;
-      font-weight: 550;
-      margin-right: 0.2rem;
-    }
-
-    .resource-line a {
-      color: #1f4b75;
-      font-weight: 480;
-      text-decoration: none;
-      border-bottom: 1px dashed #b7ccdf;
-      transition: border 0.2s, color 0.2s;
-    }
-
-    .resource-line a:hover {
-      color: #032b47;
-      border-bottom: 1px solid #1f4b75;
-    }
-
-    /* 底部 — 版权 & 署名 */
-    .footer-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      column-gap: 1.8rem;
-      row-gap: 0.4rem;
-      margin-top: 0.6rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid rgba(190, 206, 224, 0.3);
-      font-size: 0.95rem;
-      color: #3c556a;
-    }
-
-    .footer-meta .credit {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-    }
-
-    .footer-meta .credit a {
-      color: #1f4a70;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.15s;
-      border-bottom: 1px solid transparent;
-    }
-
-    .footer-meta .credit a:hover {
-      color: #09273d;
-      border-bottom: 1px solid #3b6b91;
-    }
-
-    .footer-meta .copy {
-      opacity: 0.75;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-
-    /* 出自 小标签 */
-    .from-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      background: #e6eef9;
-      padding: 0.2rem 1rem 0.2rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-    }
-
-    .from-label span {
-      color: #2f4a64;
-    }
-
-    .from-label a {
-      font-weight: 500;
-      color: #0a3350;
-      text-decoration: none;
-    }
-
-    .from-label a:hover {
-      text-decoration: underline;
-      color: #052433;
-    }
-
-    /* 让所有加粗保持统一 */
-    b, strong {
-      font-weight: 600;
-      color: #1e3142;
-    }
-
-    /* 移动端优化 */
-    @media (max-width: 540px) {
-      .card {
-        padding: 2rem 1.2rem;
-        border-radius: 32px;
-      }
-      .hero-title span {
-        font-size: 1.7rem;
-      }
-      .values-tag {
-        font-size: 1.1rem;
-        padding: 0.4rem 1rem;
-      }
-      .link-grid a {
-        padding: 0.35rem 1rem;
-        font-size: 0.92rem;
-      }
-      .avatar-wrapper img {
-        width: 120px;
-        height: 120px;
-      }
-      .resource-line {
-        flex-direction: column;
-        align-items: center;
-        border-radius: 32px;
-        padding: 0.6rem 0.8rem;
-      }
-      .footer-meta {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
-      }
-    }
-
-    /* 鼠标指针微调 */
-    .cursor-pointer {
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
+<!-- 主要内容区 -->
+<main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
     
-    <!-- 标题 -->
-    <div class="hero-title">
-      <span>✨ 欢迎来到我的网页 ✨</span>
+    <!-- 欢迎标语区域 -->
+    <div class="mb-12 text-center md:text-left">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">欢迎来到我的网页 😀</h1>
+        <p class="text-lg text-gray-600 max-w-2xl leading-relaxed">
+            爱国，敬业，诚信，友善。
+        </p>
     </div>
 
-    <!-- 头像 / 配图 (原图base64) -->
-    <div class="avatar-wrapper">
-      <img 
-        src="data:image/jpeg;base64,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" 
-        alt="头像装饰" 
-        class="inline-block max-w-full cursor-pointer align-bottom"
-        style="border: none; margin: 0; padding: 0; vertical-align: bottom; display: inline-block; max-width: 100%; height: auto; cursor: pointer;"
-      />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- 左侧：主要链接列表 -->
+        <div class="md:col-span-2 space-y-8">
+            
+            <!-- 常用服务 -->
+            <section>
+                <h2 class="section-title">常用服务</h2>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <a href="https://huanyexuan.xyz/zhiren.html" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-search text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">智人搜索</span>
+                        </div>
+                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                    </a>
+                    <div class="border-t border-gray-50"></div>
+                    <a href="https://yzrencn.github.io/1/" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-robot text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">旧版</span>
+                        </div>
+                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                    </a>
+                    <div class="border-t border-gray-50"></div>
+                    <a href="https://yzrencn.github.io/1/rili.html" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="far fa-calendar-alt text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">日历查询</span>
+                        </div>
+                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 个人项目与互动 -->
+            <section>
+                <h2 class="section-title">个人项目与互动</h2>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <a href="https://yzrencn.github.io/1/001.html" target="_blank" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="far fa-id-card text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">我的公开</span>
+                        </div>
+                        <i class="fas fa-external-link-alt text-xs text-gray-300"></i>
+                    </a>
+                    <div class="border-t border-gray-50"></div>
+                    <a href="https://yzrhyx.lofter.com" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-pen-nib text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">博客 </span>
+                        </div>
+                        <i class="fas fa-external-link-alt text-xs text-gray-300"></i>
+                    </a>
+                    <div class="border-t border-gray-50"></div>
+                    <a href="https://yzrencn.github.io/1/liuyan.html" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="far fa-comments text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">测试留言板</span>
+                        </div>
+                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                    </a>
+                    <div class="border-t border-gray-50"></div>
+                    <a href="https://yzrencn.github.io/1/tksj_game.html" class="portal-link block p-4 flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-gamepad text-gray-400 group-hover:text-[#de2910]"></i>
+                            <span class="font-medium">飞机游戏</span>
+                        </div>
+                        <i class="fas fa-chevron-right text-xs text-gray-300"></i>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- 右侧：侧边栏信息 -->
+        <div class="space-y-8">
+            
+            <!-- 快速操作 -->
+            <section class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h2 class="section-title mb-4">快速操作</h2>
+                <div class="space-y-3">
+                    <a href="https://yzrencn.github.io/1/help.html" class="block w-full text-center py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-colors">
+                        联系我
+                    </a>
+                    <a href="https://yzrencn.github.io/3/1.html" class="block w-full text-center py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-colors">
+                        切换到繁体中文
+                    </a>
+                </div>
+            </section>
+
+            <!-- 资源 -->
+            <section class="bg-[#de2910] rounded-lg shadow-md p-6 text-white">
+                <h2 class="text-white/80 text-xs font-bold uppercase tracking-wider mb-4">推荐资源</h2>
+                <p class="text-sm text-white/90 mb-4">访问更多存储资源与文件分享。</p>
+                <a href="https://yangrenhyx.ysepan.com/" target="_blank" class="block w-full bg-white text-[#de2910] text-center py-2 px-4 rounded-md text-sm font-bold hover:bg-gray-100 transition-colors shadow-sm">
+                    访问 
+                </a>
+            </section>
+
+        </div>
     </div>
+</main>
 
-    <!-- 核心价值观 -->
-    <div class="values-wrap">
-      <div class="values-tag">
-        ❤️ 爱国 · 敬业 · 诚信 · 友善 ❤️
-      </div>
+<!-- 页脚 -->
+<footer class="bg-white border-t border-gray-200 mt-auto">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-sm text-gray-500">
+                &copy; 版权所有
+            </div>
+            <div class="flex items-center gap-6 text-sm text-gray-500">
+                <span>出自：<a href="https://github.com/YzRenCN/" target="_blank" class="text-[#de2910] hover:underline font-medium">GitHub</a></span>
+            </div>
+        </div>
     </div>
-
-    <hr />
-
-    <!-- 主要链接 (用网格按钮) -->
-    <div class="link-grid">
-      <a href="https://huanyexuan.xyz/zhiren.html" class="cursor-pointer">🔍 智人搜索</a>
-      <a href="https://yzrencn.github.io/1/001.html" target="_blank" rel="noopener noreferrer" class="cursor-pointer">📁 我的公开</a>
-      <a href="https://yzrencn.github.io/1/help.html" class="cursor-pointer">📬 联系我</a>
-      <a href="https://yzrhyx.lofter.com" class="cursor-pointer">📝 博客</a>
-      <a href="https://yzrencn.github.io/3/1.html" class="cursor-pointer">🀄 切换到繁体</a>
-      <a href="https://yzrencn.github.io/1/liuyan.html" class="cursor-pointer">💬 测试留言板</a>
-    </div>
-
-    <hr />
-
-    <!-- 更多资源 -->
-    <div class="resource-line">
-      <strong>📎 更多资源链接：</strong>
-      <a href="https://yangrenhyx.ysepan.com/" target="_blank" rel="noopener noreferrer" class="cursor-pointer">
-        yangrenhyx.ysepan.com
-      </a>
-    </div>
-
-    <hr />
-
-    <!-- 底部：出处 + 版权 -->
-    <div class="footer-meta">
-      <div class="from-label">
-        <span>📌 出自：</span>
-        <a href="https://github.com/YzRenCN/" target="_blank" rel="noopener noreferrer" class="cursor-pointer">
-          <b>YZRisME</b>
-        </a>
-      </div>
-      <div class="copy">
-        <b>版权所有</b> <span style="opacity:0.5; margin:0 4px;">·</span> 2026
-      </div>
-    </div>
-
-  </div>
-</body>
-</html>
-```
+</footer>
