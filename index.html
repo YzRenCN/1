@@ -158,79 +158,6 @@
             line-height: 1.25rem;
         }
 
-        /* 搜索按钮 - 缩放0.6 */
-        .search-btn {
-            transform: scale(1.0);
-            transform-origin: left center;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border: 1px solid transparent;
-            font-size: 1rem;
-            font-weight: 500;
-            border-top-right-radius: 9999px;
-            border-bottom-right-radius: 9999px;
-            color: #fff;
-            background-color: #2563eb;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            white-space: nowrap;
-        }
-        .search-btn:hover {
-            background-color: #1d4ed8;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .search-btn:focus {
-            outline: none;
-            --tw-ring-offset-width: 2px;
-            --tw-ring-color: #3b82f6;
-            box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3b82f6;
-        }
-
-        /* 搜索框容器 - 适配缩放后的按钮 */
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-        }
-        .search-wrapper .input-field {
-            flex: 1;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 2px solid #e5e7eb;
-            border-right: none;
-            border-top-left-radius: 9999px;
-            border-bottom-left-radius: 9999px;
-            background-color: #f9fafb;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            transition: all 0.3s;
-            width: 100%;
-            outline: none;
-        }
-        .search-wrapper .input-field:focus {
-            background-color: #fff;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px #bfdbfe;
-        }
-        .search-wrapper .input-field::placeholder {
-            color: #9ca3af;
-        }
-
-        /* 搜索图标 */
-        .search-icon {
-            position: absolute;
-            left: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-            pointer-events: none;
-            transition: color 0.15s;
-        }
-        .search-wrapper:focus-within .search-icon {
-            color: #3b82f6;
-        }
-
         /* 保留原有块级元素的背景色、圆角、阴影等 */
         h2.text-xl {
             font-size: 1.5rem;
@@ -325,16 +252,7 @@
             outline-offset: 2px !important;
             cursor: pointer !important;
         }
-
-        /* 隐藏谷歌翻译自动注入的干扰元素 (保留翻译功能，但去掉多余边框) */
-        #goog-gt-tt {
-            display: none !important;
-        }
-
-        .VIpgJd-yAWNEb-L7lbkb {
-            display: none !important;
-        }
-
+        
         /* 搜索框左侧欢迎文字 */
         .welcome-left {
             font-size: 24px;
@@ -382,21 +300,8 @@
     </style>
 </head>
 <body class="hve-web-active hve-edit-mode">
-    <!-- 大标题已删除 -->
-
-    <!-- 百度搜索框模块 (左侧增加欢迎文字，搜索按钮缩放0.6) -->
-    <div class="max-w-lg mx-auto relative group" style="margin-bottom: 24px;">
-        <form action="https://www.baidu.com/s" method="get" target="_blank" class="flex items-center search-wrapper">
             <!-- 左侧欢迎文字 -->
-            <img scr=https://ys-d.ysepan.com/wap/yangrenhyx/MgfN9F9jH7C7b72/ze8hWA7sck1jaDcDbualdFgaiV37G/%E4%B8%8B%E8%BD%BD.jfif>
             <b><strong class="font-bold" style="font-size: 24pt;">欢迎来到我的网页</strong></b>
-            <div class="relative w-full" style="flex:1;">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" name="wd" placeholder="百度搜索..." class="input-field" required="">
-            </div>
-            <button type="submit" class="search-btn">
-                搜索
-            </button>
         </form>
     </div>
 
