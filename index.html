@@ -1,1742 +1,468 @@
-
 <!DOCTYPE html>
-<html lang="en" class=""><head>
+<html lang="zh-CN">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-/* ============================================
-   HTML Visual Editor v2 — Injected Styles (embedded)
-   Design: Claude Design System
-   ============================================ */
-
-[data-hve-hovered] {
-  outline: 2px dashed #cc785c !important;
-  outline-offset: 2px !important;
-  cursor: pointer !important;
-}
-
-td[data-hve-hovered],
-th[data-hve-hovered],
-tr[data-hve-hovered] {
-  outline-offset: -2px !important;
-}
-
-[data-hve-selected] {
-  outline: 2px solid #cc785c !important;
-  outline-offset: 2px !important;
-  cursor: default;
-  touch-action: none;
-}
-
-[data-hve-dragging] {
-  touch-action: none;
-}
-
-[data-hve-handle] {
-  touch-action: none;
-}
-
-[data-hve-selected]:not(td):not(th):not(tr):not(thead):not(tbody):not(tfoot):not(table) {
-  position: relative;
-}
-
-
-td[data-hve-selected],
-th[data-hve-selected],
-tr[data-hve-selected] {
-  outline-offset: -2px !important;
-}
-
-table[data-hve-selected] {
-  outline-offset: 2px !important;
-  position: relative;
-}
-
-[data-hve-dragging] {
-  opacity: 0.85 !important;
-  outline: 2px dashed #a9583e !important;
-  cursor: grabbing !important;
-  box-shadow: 0 8px 32px rgba(20,20,19,0.2), 0 2px 8px rgba(204,120,92,0.15) !important;
-  transition: box-shadow 0.15s ease, opacity 0.15s ease !important;
-  z-index: 10000 !important;
-}
-
-[data-hve-editing] {
-  outline: 2px solid #a9583e !important;
-  outline-offset: 2px !important;
-  cursor: text !important;
-  min-height: 1em;
-}
-
-td[data-hve-editing],
-th[data-hve-editing] {
-  outline-offset: -2px !important;
-}
-
-/* Firefox scrollbar styling */
-[data-hve-editor],
-[data-hve-toolbar],
-[data-hve-context-menu],
-[data-hve-page-sorter],
-[data-hve-chart-panel] {
-  scrollbar-width: thin;
-  scrollbar-color: #8e8b82 transparent;
-}
-
-/* ---- Floating Toolbar ---- */
-[data-hve-toolbar] {
-  position: fixed;
-  display: none;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 10px;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 14px;
-  box-shadow: 0 4px 24px rgba(20,20,19,0.12), 0 1px 4px rgba(20,20,19,0.08);
-  z-index: 2147483644;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  user-select: none;
-  backdrop-filter: blur(8px);
-  writing-mode: horizontal-tb;
-  direction: ltr;
-  text-align: left;
-  word-break: normal;
-  word-wrap: normal;
-  overflow-wrap: normal;
-  white-space: nowrap;
-  line-height: 1.4;
-  text-transform: none;
-  letter-spacing: normal;
-  text-indent: 0;
-  text-decoration: none;
-  box-sizing: border-box;
-}
-
-[data-hve-toolbar] .hve-tb-group {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-[data-hve-toolbar] * {
-  writing-mode: horizontal-tb;
-  direction: ltr;
-  word-break: normal;
-  box-sizing: border-box;
-}
-
-[data-hve-toolbar] .hve-tb-sep {
-  width: 1px;
-  height: 22px;
-  background: #e6dfd8;
-  margin: 0 4px;
-}
-
-[data-hve-toolbar] button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  font-size: 13px;
-  color: #3d3d3a;
-  transition: all 0.15s ease;
-  padding: 0;
-  position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-[data-hve-toolbar] button:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-[data-hve-toolbar] button:active {
-  background: #e6dfd8;
-  transform: scale(0.93);
-}
-
-[data-hve-toolbar] button.hve-active {
-  background: #cc785c;
-  color: white;
-}
-
-[data-hve-toolbar] button.hve-active:hover {
-  background: #a9583e;
-}
-
-[data-hve-toolbar] .hve-tb-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 64px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-/* ---- Dropdown ---- */
-[data-hve-dropdown] {
-  position: fixed;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(20,20,19,0.15);
-  padding: 6px;
-  z-index: 2147483645;
-  min-width: 140px;
-  max-height: 320px;
-  overflow-y: auto;
-  animation: hve-dropdown-in 0.15s ease;
-  white-space: normal;
-}
-
-[data-hve-dropdown] .hve-dd-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-  color: #3d3d3a;
-  transition: background 0.12s;
-  white-space: nowrap;
-}
-
-[data-hve-dropdown] .hve-dd-item:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-[data-hve-dropdown] .hve-dd-item .hve-dd-icon {
-  font-size: 15px;
-  width: 20px;
-  text-align: center;
-}
-
-[data-hve-dropdown] .hve-dd-divider {
-  height: 1px;
-  background: #e6dfd8;
-  margin: 4px 0;
-}
-
-@keyframes hve-dropdown-in {
-  from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* ---- Insert Indicator ---- */
-[data-hve-insert-indicator] {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: #cc785c;
-  border-radius: 2px;
-  pointer-events: none;
-  z-index: 2147483640;
-  animation: hve-indicator-pulse 1.5s ease infinite;
-}
-
-@keyframes hve-indicator-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* ---- Insert Panel ---- */
-[data-hve-insert-panel] {
-  position: fixed;
-  z-index: 2147483646;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(20,20,19,0.18), 0 2px 8px rgba(20,20,19,0.08);
-  padding: 8px;
-  min-width: 200px;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-panel-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-hve-insert-panel] .hve-ip-title {
-  font-size: 11px;
-  font-weight: 600;
-  color: #8e8b82;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 8px 12px 6px;
-}
-
-[data-hve-insert-panel] .hve-ip-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.12s;
-}
-
-[data-hve-insert-panel] .hve-ip-item:hover {
-  background: #f5f0e8;
-}
-
-[data-hve-insert-panel] .hve-ip-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: #f5f0e8;
-}
-
-[data-hve-insert-panel] .hve-ip-text {
-  display: flex;
-  flex-direction: column;
-}
-
-[data-hve-insert-panel] .hve-ip-text span:first-child {
-  font-size: 13px;
-  font-weight: 500;
-  color: #141413;
-}
-
-[data-hve-insert-panel] .hve-ip-text span:last-child {
-  font-size: 11px;
-  color: #8e8b82;
-  margin-top: 1px;
-}
-
-@keyframes hve-panel-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* ---- Dialog ---- */
-[data-hve-dialog-overlay] {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(20,20,19,0.4);
-  backdrop-filter: blur(4px);
-  z-index: 2147483645;
-  animation: hve-fade-in 0.2s ease;
-}
-
-[data-hve-dialog] {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  z-index: 2147483646;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 16px;
-  box-shadow: 0 16px 48px rgba(20,20,19,0.2);
-  padding: 28px;
-  min-width: 320px;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-dialog-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-hve-dialog] h3 {
-  font-size: 17px;
-  font-weight: 600;
-  color: #141413;
-  margin-bottom: 20px;
-}
-
-[data-hve-dialog] label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: #6c6a64;
-  margin-bottom: 6px;
-}
-
-[data-hve-dialog] input[type="number"],
-[data-hve-dialog] input[type="text"],
-[data-hve-dialog] select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #e6dfd8;
-  border-radius: 10px;
-  font-size: 14px;
-  font-family: inherit;
-  background: #faf9f5;
-  color: #141413;
-  transition: border-color 0.2s;
-}
-
-[data-hve-dialog] input:focus,
-[data-hve-dialog] select:focus {
-  outline: none;
-  border-color: #cc785c;
-  box-shadow: 0 0 0 3px rgba(204,120,92,0.12);
-}
-
-[data-hve-dialog] .hve-dialog-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 24px;
-}
-
-[data-hve-dialog] .hve-btn-cancel {
-  padding: 9px 18px;
-  border: 1px solid #e6dfd8;
-  border-radius: 10px;
-  background: #faf9f5;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  color: #3d3d3a;
-  font-family: inherit;
-  transition: all 0.15s;
-}
-
-[data-hve-dialog] .hve-btn-cancel:hover {
-  background: #f5f0e8;
-}
-
-[data-hve-dialog] .hve-btn-confirm {
-  padding: 9px 18px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #cc785c, #a9583e);
-  color: white;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: inherit;
-  box-shadow: 0 2px 8px rgba(204,120,92,0.3);
-  transition: all 0.15s;
-}
-
-[data-hve-dialog] .hve-btn-confirm:hover {
-  background: #a9583e;
-  box-shadow: 0 4px 12px rgba(204,120,92,0.4);
-}
-
-@keyframes hve-dialog-in {
-  from { opacity: 0; transform: translate(-50%,-50%) scale(0.95); }
-  to { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-}
-
-@keyframes hve-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* ---- Toast ---- */
-@keyframes hve-toast-in {
-  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* ---- Resize Handles ---- */
-[data-hve-resize-container] {
-  pointer-events: none;
-}
-
-[data-hve-handle] {
-  pointer-events: all;
-  transition: background 0.15s, transform 0.15s;
-}
-
-[data-hve-handle]:hover {
-  background: #a9583e !important;
-  transform: scale(1.3);
-}
-
-/* ---- Context Menu ---- */
-[data-hve-context-menu] {
-  position: fixed;
-  z-index: 2147483647;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(20,20,19,0.15);
-  padding: 6px;
-  min-width: 180px;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-dropdown-in 0.15s ease;
-}
-
-[data-hve-context-menu] .hve-cm-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-  color: #3d3d3a;
-  transition: background 0.12s;
-}
-
-[data-hve-context-menu] .hve-cm-item:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-[data-hve-context-menu] .hve-cm-item.danger {
-  color: #EF4444;
-}
-
-[data-hve-context-menu] .hve-cm-item.danger:hover {
-  background: #FEF2F2;
-}
-
-[data-hve-context-menu] .hve-cm-divider {
-  height: 1px;
-  background: #e6dfd8;
-  margin: 4px 0;
-}
-
-[data-hve-context-menu] .hve-cm-icon {
-  width: 18px;
-  text-align: center;
-  font-size: 14px;
-}
-
-[data-hve-context-menu] .hve-cm-shortcut {
-  margin-left: auto;
-  font-size: 11px;
-  color: #e6dfd8;
-  font-family: 'SF Mono', monospace;
-}
-
-/* ---- Status Indicator ---- */
-[data-hve-status] {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 2147483647;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: linear-gradient(135deg, #cc785c, #a9583e);
-  color: white;
-  border-radius: 24px;
-  font: 13px/1.4 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 500;
-  box-shadow: 0 4px 16px rgba(204,120,92,0.35);
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.2s;
-}
-
-[data-hve-status]:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(204,120,92,0.45);
-}
-
-[data-hve-status] .hve-status-dot {
-  width: 8px;
-  height: 8px;
-  background: #10B981;
-  border-radius: 50%;
-  animation: hve-pulse 2s ease infinite;
-}
-
-@keyframes hve-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* ---- Quick Add Button ---- */
-[data-hve-quick-add] {
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-/* ---- Multi-select ---- */
-[data-hve-multi-selected] {
-  outline: 2px solid #cc785c !important;
-  outline-offset: 2px !important;
-  cursor: move !important;
-  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.12) !important;
-}
-
-[data-hve-marquee-preview] {
-  outline: 2px dashed #cc785c !important;
-  outline-offset: 1px !important;
-  box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.1) !important;
-}
-
-[data-hve-marquee] {
-  transition: none !important;
-}
-
-[data-hve-multi-toast] {
-  position: fixed;
-  bottom: 64px;
-  right: 20px;
-  z-index: 2147483647;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 12px 14px;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 14px;
-  font: 13px/1.4 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: #3d3d3a;
-  box-shadow: 0 4px 16px rgba(20, 20, 19, 0.12);
-  user-select: none;
-  animation: hve-panel-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-hve-multi-toast] .hve-multi-info-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-[data-hve-multi-toast] .hve-multi-dot {
-  width: 8px;
-  height: 8px;
-  background: #cc785c;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-[data-hve-multi-toast] b {
-  color: #cc785c;
-  font-weight: 700;
-}
-
-[data-hve-multi-toast] .hve-multi-actions {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  padding: 4px 0;
-}
-
-[data-hve-multi-toast] .hve-multi-actions button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 7px;
-  background: transparent;
-  cursor: pointer;
-  font-size: 12px;
-  color: #3d3d3a;
-  transition: all 0.12s ease;
-  padding: 0;
-}
-
-[data-hve-multi-toast] .hve-multi-actions button:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-[data-hve-multi-toast] .hve-multi-actions button:active {
-  background: #e6dfd8;
-  transform: scale(0.92);
-}
-
-[data-hve-multi-toast] .hve-multi-actions .hve-multi-btn-danger:hover {
-  background: #FEF2F2;
-  color: #EF4444;
-}
-
-[data-hve-multi-toast] .hve-multi-sep {
-  width: 1px;
-  height: 18px;
-  background: #e6dfd8;
-  margin: 0 3px;
-  flex-shrink: 0;
-}
-
-[data-hve-multi-toast] .hve-multi-hint {
-  color: #e6dfd8;
-  font-size: 11px;
-}
-
-/* ---- Locked Elements ---- */
-[data-hve-locked] {
-  cursor: not-allowed !important;
-  position: relative;
-}
-
-[data-hve-group][data-hve-selected] {
-  outline-style: dashed !important;
-  outline-color: #5db8a6 !important;
-}
-
-[data-hve-group][data-hve-selected]::before {
-  content: 'Group' !important;
-  background: #5db8a6 !important;
-}
-
-[data-hve-locked]::after {
-  content: '🔒';
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  font-size: 12px;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-[data-hve-locked][data-hve-selected] {
-  outline-color: #8e8b82 !important;
-}
-
-[data-hve-context-menu] .hve-cm-item.disabled {
-  opacity: 0.4;
-  pointer-events: none;
-  cursor: default;
-}
-
-/* ---- Page Sorter ---- */
-[data-hve-page-sorter] {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  z-index: 2147483646;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(20,20,19,0.18), 0 2px 8px rgba(20,20,19,0.08);
-  width: 340px;
-  max-height: 80vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-panel-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-hve-page-sorter] .hve-ps-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 16px;
-  border-bottom: 1px solid #e6dfd8;
-  background: #f5f0e8;
-  border-radius: 16px 16px 0 0;
-  flex-shrink: 0;
-}
-
-[data-hve-page-sorter] .hve-ps-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #141413;
-}
-
-[data-hve-page-sorter] .hve-ps-count {
-  font-size: 11px;
-  color: #cc785c;
-  background: #efe9de;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: 500;
-}
-
-[data-hve-page-sorter] .hve-ps-close {
-  margin-left: auto;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #8e8b82;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-}
-
-[data-hve-page-sorter] .hve-ps-close:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-[data-hve-page-sorter] .hve-ps-list {
-  overflow-y: auto;
-  padding: 8px;
-  flex: 1;
-}
-
-[data-hve-page-sorter] .hve-ps-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.15s;
-  border: 2px solid transparent;
-  margin-bottom: 4px;
-}
-
-[data-hve-page-sorter] .hve-ps-item:hover {
-  background: #f5f0e8;
-}
-
-[data-hve-page-sorter] .hve-ps-item.active {
-  border-color: #cc785c;
-  background: #efe9de;
-}
-
-[data-hve-page-sorter] .hve-ps-item.dragging {
-  opacity: 0.5;
-  transform: scale(0.95);
-}
-
-[data-hve-page-sorter] .hve-ps-item.drag-over {
-  border-color: #cc785c;
-  background: #efe9de;
-}
-
-[data-hve-page-sorter] .hve-ps-thumb {
-  flex-shrink: 0;
-}
-
-[data-hve-page-sorter] .hve-ps-right {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-[data-hve-page-sorter] .hve-ps-info {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-[data-hve-page-sorter] .hve-ps-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: #cc785c;
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-[data-hve-page-sorter] .hve-ps-name {
-  font-size: 12px;
-  font-weight: 500;
-  color: #141413;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-[data-hve-page-sorter] .hve-ps-actions {
-  display: flex;
-  gap: 4px;
-}
-
-[data-hve-page-sorter] .hve-ps-btn {
-  width: 26px;
-  height: 26px;
-  border: 1px solid #e6dfd8;
-  border-radius: 6px;
-  background: #faf9f5;
-  cursor: pointer;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-  padding: 0;
-}
-
-[data-hve-page-sorter] .hve-ps-btn:hover:not(:disabled) {
-  background: #f5f0e8;
-  border-color: #cc785c;
-}
-
-[data-hve-page-sorter] .hve-ps-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
-/* ---- Alignment Guides ---- */
-[data-hve-guide] {
-  pointer-events: none !important;
-  opacity: 0.8;
-}
-
-/* ---- Format Brush ---- */
-[data-hve-format-brush] * {
-  cursor: copy !important;
-}
-
-[data-hve-format-brush] [data-hve-hovered] {
-  outline-color: #5db8a6 !important;
-  outline-style: dashed !important;
-}
-
-/* ---- Color Panel ---- */
-[data-hve-color-panel] {
-  position: fixed;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(20,20,19,0.15);
-  padding: 12px;
-  z-index: 2147483646;
-  width: 240px;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-dropdown-in 0.15s ease;
-  white-space: normal;
-}
-
-[data-hve-color-panel] .hve-cp-title {
-  font-size: 11px;
-  font-weight: 600;
-  color: #8e8b82;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-[data-hve-color-panel] .hve-cp-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 3px;
-  margin-bottom: 10px;
-}
-
-[data-hve-color-panel] .hve-cp-swatch {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-  box-sizing: border-box;
-}
-
-[data-hve-color-panel] .hve-cp-swatch:hover {
-  transform: scale(1.2);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  z-index: 1;
-  position: relative;
-}
-
-[data-hve-color-panel] .hve-cp-swatch.active {
-  outline: 2px solid #cc785c;
-  outline-offset: 2px;
-  transform: scale(1.15);
-}
-
-[data-hve-color-panel] .hve-cp-custom {
-  border-top: 1px solid #e6dfd8;
-  padding-top: 8px;
-}
-
-[data-hve-color-panel] .hve-cp-custom label {
-  font-size: 11px;
-  font-weight: 500;
-  color: #8e8b82;
-  display: block;
-  margin-bottom: 6px;
-}
-
-[data-hve-color-panel] .hve-cp-custom-row {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-[data-hve-color-panel] .hve-cp-native {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #e6dfd8;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 2px;
-  background: #faf9f5;
-  flex-shrink: 0;
-}
-
-[data-hve-color-panel] .hve-cp-native::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-[data-hve-color-panel] .hve-cp-native::-webkit-color-swatch {
-  border: none;
-  border-radius: 5px;
-}
-
-[data-hve-color-panel] .hve-cp-hex {
-  flex: 1;
-  padding: 6px 8px;
-  border: 1px solid #e6dfd8;
-  border-radius: 8px;
-  font-size: 13px;
-  font-family: 'SF Mono', monospace;
-  color: #141413;
-  background: #faf9f5;
-  text-transform: uppercase;
-}
-
-[data-hve-color-panel] .hve-cp-hex:focus {
-  outline: none;
-  border-color: #cc785c;
-  box-shadow: 0 0 0 3px rgba(204,120,92,0.12);
-}
-
-/* ---- Content Boxes ---- */
-[data-hve-content-box] {
-  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-}
-
-[data-hve-content-box]:hover {
-  border-color: #e6dfd8 !important;
-}
-
-[data-hve-content-box][data-hve-selected] {
-  border-color: #cc785c !important;
-  box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.1) !important;
-}
-
-[data-hve-content-box].hve-drop-hover {
-  border-color: #cc785c !important;
-  background: rgba(204, 120, 92, 0.04) !important;
-  box-shadow: 0 0 0 3px rgba(204, 120, 92, 0.12) !important;
-}
-
-[data-hve-box-toolbar] button:hover {
-  border-color: #cc785c !important;
-  background: #efe9de !important;
-  transform: scale(1.08);
-}
-
-[data-hve-box-toolbar] button:active {
-  transform: scale(0.95);
-}
-
-[data-hve-placeholder] {
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-[data-hve-content-box]:hover [data-hve-placeholder] {
-  opacity: 1;
-}
-
-/* ---- Image Drop Overlay ---- */
-[data-hve-drop-overlay] {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 2147483645;
-  background: rgba(204, 120, 92, 0.06);
-  border: 3px dashed #cc785c;
-  pointer-events: none;
-  animation: hve-drop-overlay-in 0.25s ease;
-}
-
-[data-hve-drop-overlay] .hve-drop-content {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 32px 48px;
-  background: rgba(250, 249, 245, 0.95);
-  border: 2px solid #cc785c;
-  border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(204, 120, 92, 0.2);
-  backdrop-filter: blur(8px);
-}
-
-[data-hve-drop-overlay] .hve-drop-content span {
-  font: 16px/1.4 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
-  color: #cc785c;
-  letter-spacing: 0.3px;
-}
-
-@keyframes hve-drop-overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-[data-hve-drop-indicator] {
-  animation: hve-drop-indicator-pulse 1s ease infinite;
-}
-
-@keyframes hve-drop-indicator-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* ---- Floating Elements (absolute-positioned, styled identically to flow-mode elements) ---- */
-
-/* Prevent [data-hve-selected] position:relative from overriding float absolute positioning.
-   Inline style (position:absolute) already wins over CSS rules, but this guard ensures
-   no specificity edge case can break it. */
-[data-hve-floating][data-hve-selected] {
-  position: absolute !important;
-}
-
-@keyframes hve-float-in {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-[data-hve-floating].hve-float-new {
-  animation: hve-float-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ---- Insert Panel Mode Toggle ---- */
-.hve-ip-mode-toggle {
-  display: flex;
-  gap: 4px;
-  padding: 6px 8px;
-  background: #f5f0e8;
-  border-radius: 10px;
-  margin: 4px 8px;
-}
-
-.hve-ip-mode-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  font-family: inherit;
-  color: #6c6a64;
-  transition: all 0.15s;
-}
-
-.hve-ip-mode-btn:hover {
-  color: #3d3d3a;
-  background: rgba(255,255,255,0.6);
-}
-
-.hve-ip-mode-btn.active {
-  background: #faf9f5;
-  color: #cc785c;
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(20,20,19,0.08);
-}
-
-.hve-ip-divider {
-  height: 1px;
-  background: #e6dfd8;
-  margin: 4px 0;
-}
-
-/* ---- PDF Pagination ---- */
-[data-hve-pdf-panel] {
-  position: fixed;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 260px;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 14px;
-  box-shadow: 0 4px 24px rgba(20,20,19,0.12), 0 1px 4px rgba(20,20,19,0.08);
-  z-index: 2147483645;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-pdf-panel-in 0.3s cubic-bezier(0.4,0,0.2,1);
-  overflow: hidden;
-}
-
-@keyframes hve-pdf-panel-in {
-  from { opacity: 0; transform: translateY(-50%) translateX(12px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-.hve-pdf-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
-  border-bottom: 1px solid #e6dfd8;
-  background: #f5f0e8;
-}
-
-.hve-pdf-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #141413;
-}
-
-.hve-pdf-close {
-  width: 22px;
-  height: 22px;
-  border: none;
-  background: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #6c6a64;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hve-pdf-close:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-.hve-pdf-body {
-  padding: 12px 14px;
-}
-
-.hve-pdf-row {
-  margin-bottom: 10px;
-}
-
-.hve-pdf-row label {
-  display: block;
-  font-size: 11px;
-  color: #6c6a64;
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-
-.hve-pdf-row select,
-.hve-pdf-row input[type="number"] {
-  width: 100%;
-  padding: 5px 8px;
-  border: 1px solid #e6dfd8;
-  border-radius: 8px;
-  font-size: 12px;
-  color: #141413;
-  background: #faf9f5;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.hve-pdf-row select:focus,
-.hve-pdf-row input:focus {
-  border-color: #cc785c;
-  box-shadow: 0 0 0 2px rgba(204,120,92,0.1);
-}
-
-.hve-pdf-row input[type="range"] {
-  width: calc(100% - 45px);
-  vertical-align: middle;
-  accent-color: #cc785c;
-}
-
-.hve-pdf-scale-label {
-  font-size: 11px;
-  color: #6c6a64;
-  margin-left: 4px;
-}
-
-.hve-pdf-toggle {
-  display: flex;
-  gap: 4px;
-}
-
-.hve-pdf-toggle button {
-  flex: 1;
-  padding: 5px 10px;
-  border: 1px solid #e6dfd8;
-  border-radius: 8px;
-  background: #faf9f5;
-  font-size: 12px;
-  color: #6c6a64;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.hve-pdf-toggle button.active {
-  background: #efe9de;
-  color: #cc785c;
-  border-color: #cc785c;
-  font-weight: 500;
-}
-
-.hve-pdf-margins {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 4px;
-}
-
-.hve-pdf-margins input {
-  width: 100% !important;
-  text-align: center;
-  padding: 4px 2px !important;
-  font-size: 11px !important;
-}
-
-.hve-pdf-divider {
-  height: 1px;
-  background: #e6dfd8;
-  margin: 10px 0;
-}
-
-.hve-pdf-info {
-  font-size: 13px;
-  color: #cc785c;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.hve-pdf-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.hve-pdf-btn-primary {
-  width: 100%;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #cc785c, #a9583e);
-  color: white;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.hve-pdf-btn-primary:hover {
-  box-shadow: 0 2px 12px rgba(204,120,92,0.3);
-  transform: translateY(-1px);
-}
-
-.hve-pdf-btn {
-  width: 100%;
-  padding: 6px 12px;
-  border: 1px solid #e6dfd8;
-  border-radius: 10px;
-  background: #faf9f5;
-  color: #3d3d3a;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.hve-pdf-btn:hover {
-  background: #f5f0e8;
-  border-color: #cc785c;
-}
-
-.hve-pdf-row-compact {
-  margin-bottom: 6px;
-}
-.hve-pdf-row-compact label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #3d3d3a;
-  cursor: pointer;
-}
-.hve-pdf-row-compact input[type="checkbox"] {
-  width: auto;
-  accent-color: #cc785c;
-}
-
-.hve-pdf-custom-size {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-.hve-pdf-custom-size input {
-  flex: 1;
-  padding: 5px 6px;
-  border: 1px solid #e6dfd8;
-  border-radius: 8px;
-  font-size: 12px;
-  color: #141413;
-  background: #faf9f5;
-  outline: none;
-  box-sizing: border-box;
-  text-align: center;
-}
-.hve-pdf-custom-size input:focus {
-  border-color: #cc785c;
-  box-shadow: 0 0 0 2px rgba(204,120,92,0.1);
-}
-.hve-pdf-custom-size span {
-  font-size: 12px;
-  color: #6c6a64;
-  flex-shrink: 0;
-}
-
-[data-hve-pdf-overlay] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: 2147483639;
-}
-
-.hve-pdf-break-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 0;
-  border-top: 2px dashed #cc785c;
-  pointer-events: none;
-}
-
-.hve-pdf-break-line.hve-pdf-break-manual {
-  border-top-color: #3B82F6;
-  border-top-style: solid;
-}
-
-.hve-pdf-break-line.hve-pdf-break-slide {
-  border-top-color: #10B981;
-  border-top-style: dotted;
-}
-
-.hve-pdf-break-label {
-  position: absolute;
-  left: 12px;
-  top: -18px;
-  font: 10px/1 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: white;
-  background: #cc785c;
-  padding: 2px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-.hve-pdf-break-manual .hve-pdf-break-label {
-  background: #3B82F6;
-}
-
-.hve-pdf-break-slide .hve-pdf-break-label {
-  background: #10B981;
-}
-
-.hve-pdf-page-number {
-  position: absolute;
-  right: 12px;
-  top: -18px;
-  font: 10px/1 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: white;
-  background: #cc785c;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-[data-hve-toolbar] button[data-action="pdf-paginator"] {
-  display: none;
-}
-
-/* ---- Chart Typography ---- */
-[data-hve-chart-panel] {
-  position: fixed;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 260px;
-  max-height: 80vh;
-  overflow-y: auto;
-  background: #faf9f5;
-  border: 1px solid #e6dfd8;
-  border-radius: 14px;
-  box-shadow: 0 4px 24px rgba(20,20,19,0.12), 0 1px 4px rgba(20,20,19,0.08);
-  z-index: 2147483645;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: hve-chart-panel-in 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-@keyframes hve-chart-panel-in {
-  from { opacity: 0; transform: translateY(-50%) translateX(12px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-[data-hve-chart-panel] {
-  scrollbar-width: thin;
-  scrollbar-color: #e6dfd8 transparent;
-}
-
-[data-hve-chart-panel]::-webkit-scrollbar {
-  width: 4px;
-}
-
-[data-hve-chart-panel]::-webkit-scrollbar-thumb {
-  background: #e6dfd8;
-  border-radius: 4px;
-}
-
-.hve-chart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
-  border-bottom: 1px solid #e6dfd8;
-  background: #f5f0e8;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.hve-chart-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #141413;
-}
-
-.hve-chart-close {
-  width: 22px;
-  height: 22px;
-  border: none;
-  background: transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #6c6a64;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hve-chart-close:hover {
-  background: #f5f0e8;
-  color: #141413;
-}
-
-.hve-chart-body {
-  padding: 12px 14px;
-}
-
-.hve-chart-section {
-  margin-bottom: 4px;
-}
-
-.hve-chart-section-title {
-  font-size: 11px;
-  font-weight: 600;
-  color: #8e8b82;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-.hve-chart-divider {
-  height: 1px;
-  background: #e6dfd8;
-  margin: 10px 0;
-}
-
-.hve-chart-template-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
-
-.hve-chart-template-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 6px;
-  border: 1px solid #e6dfd8;
-  border-radius: 10px;
-  background: #faf9f5;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.hve-chart-template-btn:hover {
-  background: #efe9de;
-  border-color: #cc785c;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(204,120,92,0.12);
-}
-
-.hve-chart-template-icon {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.hve-chart-template-name {
-  font-size: 10px;
-  color: #3d3d3a;
-  font-weight: 500;
-}
-
-.hve-chart-typo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.hve-chart-typo-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
-  border: 1px solid #e6dfd8;
-  border-radius: 8px;
-  background: #faf9f5;
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: left;
-}
-
-.hve-chart-typo-btn:hover {
-  background: #f5f0e8;
-  border-color: #cc785c;
-}
-
-.hve-chart-typo-preview {
-  font-size: 14px;
-  color: #141413;
-  min-width: 55px;
-}
-
-.hve-chart-typo-name {
-  font-size: 11px;
-  color: #6c6a64;
-  font-weight: 500;
-}
-
-.hve-chart-fine-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.hve-chart-ctrl-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.hve-chart-ctrl-row label {
-  font-size: 11px;
-  color: #6c6a64;
-  min-width: 50px;
-  font-weight: 500;
-}
-
-.hve-chart-ctrl-row input[type="range"] {
-  flex: 1;
-  accent-color: #cc785c;
-  height: 4px;
-}
-
-.hve-chart-ctrl-row select {
-  flex: 1;
-  padding: 3px 6px;
-  border: 1px solid #e6dfd8;
-  border-radius: 6px;
-  font-size: 11px;
-  color: #141413;
-  background: #faf9f5;
-}
-
-.hve-chart-ctrl-val {
-  font-size: 10px;
-  color: #8e8b82;
-  min-width: 32px;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-[data-hve-toolbar] button[data-action="chart-typo"].hve-tb-chart-active {
-  background: #ECFDF5;
-  color: #10B981;
-  box-shadow: inset 0 0 0 1px rgba(16,185,129,0.2);
-}
-</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="https://www.gstatic.com/_/translate_http/_/ss/k=translate_http.tr.zZZZhVqDDCw.L.W.O/am=BECAAQ/d=0/rs=AN8SPfreld5KM52lJgLi44qeAC03eRorPQ/m=el_main_css"></head>
+    <title>YZRisME 个人主页</title>
+    <!-- Font Awesome for search icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ============================================
+           基础重置 & 全局优化 (保留原有视觉)
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+            background: #f9f8f6;
+            color: #1e1e1c;
+            padding: 20px 24px;
+            line-height: 1.6;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* 统一链接风格，保留原有色块样式 */
+        a {
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        /* 保留原界面中的所有背景色块、圆角、阴影等，仅微调交互 */
+        p {
+            margin-bottom: 12px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 2px solid #e2ddd6;
+            margin: 24px 0;
+        }
+
+        .text-primary {
+            color: #cc785c;
+        }
+
+        .underline {
+            text-decoration: none;
+        }
+
+        .font-bold {
+            font-weight: 600;
+        }
+
+        /* 百度搜索框模块 – 保留原有样式 + 搜索按钮缩放0.6 */
+        .max-w-lg {
+            max-width: 32rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .relative {
+            position: relative;
+        }
+
+        .group {
+            transition: all 0.2s;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .pl-10 {
+            padding-left: 2.5rem;
+        }
+
+        .pr-4 {
+            padding-right: 1rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .border-2 {
+            border-width: 2px;
+        }
+
+        .border-gray-200 {
+            border-color: #e5e7eb;
+        }
+
+        .rounded-l-full {
+            border-top-left-radius: 9999px;
+            border-bottom-left-radius: 9999px;
+        }
+
+        .bg-gray-50 {
+            background-color: #f9fafb;
+        }
+
+        .placeholder-gray-400::placeholder {
+            color: #9ca3af;
+        }
+
+        .focus\:outline-none:focus {
+            outline: none;
+        }
+
+        .focus\:bg-white:focus {
+            background-color: #fff;
+        }
+
+        .focus\:border-blue-500:focus {
+            border-color: #3b82f6;
+        }
+
+        .focus\:ring-2:focus {
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+        }
+
+        .focus\:ring-blue-200:focus {
+            --tw-ring-color: #bfdbfe;
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        .sm\:text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        /* 搜索按钮 - 缩放0.6 */
+        .search-btn {
+            transform: scale(0.6);
+            transform-origin: left center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid transparent;
+            font-size: 1rem;
+            font-weight: 500;
+            border-top-right-radius: 9999px;
+            border-bottom-right-radius: 9999px;
+            color: #fff;
+            background-color: #2563eb;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            white-space: nowrap;
+        }
+        .search-btn:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .search-btn:focus {
+            outline: none;
+            --tw-ring-offset-width: 2px;
+            --tw-ring-color: #3b82f6;
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3b82f6;
+        }
+
+        /* 搜索框容器 - 适配缩放后的按钮 */
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .search-wrapper .input-field {
+            flex: 1;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid #e5e7eb;
+            border-right: none;
+            border-top-left-radius: 9999px;
+            border-bottom-left-radius: 9999px;
+            background-color: #f9fafb;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            transition: all 0.3s;
+            width: 100%;
+            outline: none;
+        }
+        .search-wrapper .input-field:focus {
+            background-color: #fff;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px #bfdbfe;
+        }
+        .search-wrapper .input-field::placeholder {
+            color: #9ca3af;
+        }
+
+        /* 搜索图标 */
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            transition: color 0.15s;
+        }
+        .search-wrapper:focus-within .search-icon {
+            color: #3b82f6;
+        }
+
+        /* 保留原有块级元素的背景色、圆角、阴影等 */
+        h2.text-xl {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1e1e1c;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            vertical-align: middle;
+        }
+
+        /* 导航链接块（原有灰底圆角按钮）保留 */
+        .nav-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 6px;
+            align-items: center;
+        }
+        .nav-btn-group a {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 50px;
+            background: #bbbbbb;
+            color: #777;
+            font-size: 16px;
+            font-family: "Noto Sans SC", sans-serif;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .nav-btn-group a:hover {
+            background: #aaa;
+            color: #333;
+            transform: translateY(-1px);
+        }
+
+        /* 保留其他原有色块链接 (棕色/蓝色) */
+        a[style*="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72)"] {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 12px;
+            background: #795548 !important;
+            color: #fff !important;
+            font-size: 24px;
+            font-family: "Noto Sans SC", sans-serif;
+            transition: all 0.2s;
+        }
+        a[style*="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72)"]:hover {
+            background: #5d4037 !important;
+            transform: scale(1.02);
+        }
+
+        a[style*="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(79, 195, 247)"] {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 12px;
+            background: #4fc3f7 !important;
+            color: #fff !important;
+            font-size: 16px;
+            font-family: "Noto Sans SC", sans-serif;
+            transition: all 0.2s;
+        }
+        a[style*="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(79, 195, 247)"]:hover {
+            background: #29b6f6 !important;
+            transform: scale(1.02);
+        }
+
+        /* 其他微调：防止文字溢出，改善可读性 */
+        .inline-block {
+            display: inline-block;
+        }
+
+        .max-w-full {
+            max-width: 100%;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .align-bottom {
+            vertical-align: bottom;
+        }
+
+        /* 保留所有原有内联样式，不做覆盖，只做增强 */
+        /* 针对视觉编辑器注入的样式，我们保留但不干扰 */
+        [data-hve-hovered] {
+            outline: 2px dashed #cc785c !important;
+            outline-offset: 2px !important;
+            cursor: pointer !important;
+        }
+
+        /* 隐藏谷歌翻译自动注入的干扰元素 (保留翻译功能，但去掉多余边框) */
+        #goog-gt-tt {
+            display: none !important;
+        }
+
+        .VIpgJd-yAWNEb-L7lbkb {
+            display: none !important;
+        }
+
+        /* 搜索框左侧欢迎文字 */
+        .welcome-left {
+            font-size: 24px;
+            font-weight: 400;
+            color: #1e1e1c;
+            white-space: nowrap;
+            margin-right: 20px;
+            letter-spacing: 0.5px;
+            font-family: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* 优化移动端显示 */
+        @media (max-width: 640px) {
+            body {
+                padding: 12px 16px;
+            }
+            a[style*="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72)"] {
+                font-size: 18px !important;
+                padding: 2px 10px;
+            }
+            .max-w-lg {
+                max-width: 100%;
+            }
+            .nav-btn-group a {
+                font-size: 14px;
+                padding: 3px 12px;
+            }
+            .search-btn {
+                transform: scale(0.6);
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            .welcome-left {
+                font-size: 18px;
+                margin-right: 12px;
+                white-space: normal;
+            }
+            .search-wrapper {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* 保留原有内联样式中的 transform 定位，但避免覆盖 */
+        /* 用户自定义的 transform 保留 */
+    </style>
+</head>
 <body class="hve-web-active hve-edit-mode">
-    <h2 class="text-xl font-bold" style="text-align: center;">
-      
-    </h2>
-    
-    
-    <p style="transform: translate(0px, 10.9063px); width: 1409px; height: 190px; background-color: rgb(97, 186, 232); font-size: 48px; text-align: left; color: rgb(255, 255, 255); border-radius: 32px;">
-      <b style="cursor: move; text-align: center; transform: translate(0px, -63px);"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/7AARRHVja3kAAQAEAAAAPAAA/9sAQwACAQECAQECAgICAgICAgMFAwMDAwMGBAQDBQcGBwcHBgcHCAkLCQgICggHBwoNCgoLDAwMDAcJDg8NDA4LDAwM/9sAQwECAgIDAwMGAwMGDAgHCAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgAfQCaAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+pbqGVpZMyBVz0J61Snj8pT826m6kzT3T/Nv2k/hVVTIxIGfev6Yp7H8iy5bjJMlyBT4f3TD5efp1oWBi1Si2bcOTVS21JWmw9LtlOPLU+gxUsti08Hy/e7CpLS0ZpV/vds1rtpnl2+5m2N22isZSUXodEeaSszm5Va1bay7W9QKmgdlXc3zegq1e2Qn+bzmLd8iq4tSoHH4561opJoxleL0FWNSd3A3dqfL25oMBwKMUE6ke5jQtuC3XnPNSBtvpUkBVic7aBS2HNb7G4prpUznOKbjNK+th8vUiVdtLnFAPtTvLB70wBWxS7s0x2UUb8d6Crj+v8NJj/ZpqycU3zanlJPK/ij8d9ePjXULPwt4H1/SdN+0vFaXfiaxnildSxCfuI1LMenJYfjXbfBV9Su/Bssnie7sry7kfEVzY2/lfLjj922ST9dp65z29k/4J56H4g+LnwZ8Rax43hvLr4ieE2vdHsNJ1GMrJDcQxfu5iHGd7MRjHCkcV8seJ/h/8XrHw9dW+q/DHxnD/ZsRupsO630Y6u0TR5SUjghWHSv4lxnipmdeqqs8e0ruCtJQXMnZx0teXk7vrtqf6t8P+Ffh+niMkw2X4eEqMoqdSpJVJTbu7wdV35dr8jjB3sou2vofiK7ns5Sun61ppmj/ANZDd6RN5ir6/JPz7kLWLaeLPFi6Xcaha2PhvxLa6cRLew6VLcxzxW2QDKPOTbkZGRnj15r5vX9qefyvLuGkvHtyfIuWLLMuP4WHUMOjHPBHQV6p+yb/AMFOrX4IfEqxutY8K6Pqmn6o32XUtSkaQ3sNox/eYXPlPj5WAZSTsNbLxI4ipPnp4qbt0fvLTumnc+pz/wCjdw7Ty+pKGT0qsktFFKnJ+jhyS1W3W+lns/X4PiroMMVvJeSXGjtMN8T38LQQyjp8shBjbt0b8q6+z1qK701ZUkhkjcfK8b71b33DIPXsa8f+JP8AwUL8P/tG+NLjVtN0afT7psQSabcagskcltHlVMKMijgZ3RZKknIAJ55G/wDi94P8BXS6tprTaLM4PmW1icW8+RwzWhIRiOfmXDDJzniv0TI/G2pKKWa0LrrKF0//AAFtp/Jr06H878QfQ3q1qXt8jqTw9WSv7GrapFP+X2kEmo7JPknc+g7i5VumDu61UXljxXk/ws/ax0LxzbSx31xZ6XNC5RJWmxG64G1mDYZCeeoK/WvUre8W7ijlhZZoZEDLIpDK/uCOCPccV+65HxBl2bUfbZfVU11XVf4luvmtelz+PeOvDziThDG/UuIcLKjJuyb1hK2/JNXjLzSba2kovQt+XvSoDAcmpo51+nrT32sle1sz4e9yk0LZojVkce9Wwu5en5d6Qwbj34p8xnuRqTk8UHJqSVQoGKbnFHMOMWM5WmqeWqVjmkCKOnNHMMjKBqVIwv8AtUUZxVAKw/2cUmKM5ooA+qPHHi3SrXx3fapoOuWWpTTstwZrOZJSsoGHVghxncv0weK+Bv2j/wDgp38S/i14gv8AQZNSh+HtzYyyWNzaadbp9o3KzbLiC4kUuSV5eNSpwcqeDXM/s1/tA2fhL4TwrqN7cWP9lM0b3EUW4wxGQDzD3IGckDqM15N+2v4ysPHPxB0/V2jih16S3aDUjAB9nv1Rh5N5GR2kRj8vYx1/lTlHBs8pz7FYuH7zD4x87T19nVV29L25ZXdnunZPo3/tlwX4bYPLs4+p5lRVZRTjCrKK91x/u6xtJW84y5bWvr5b8SdT1LVfFl1NrKsda3/6ZNt2+ecDEhHTcRglh13DPOaxFDToMD95GwKn0x3P512+q3C/EbwW80nza9o8ePN/5/YB2Pqw9/WuKSJblAeAVAxX6VGVkfv2Hp2/ctWcdLLa3RrsuqWy22PTP2Yv2ddX+PXidBBYXi6RbxzJPqMEgVLOUQyeUx5yPnC47cVL8TNJ1r4RajHovjO302+1SdDJNbQXSyThDgbpGX7rMOR3IBz0rI/Z1+NV1+zz8Q5fEVvDJeFbGeE23nGOGV3TajS4+8qk5x1zis/41/Eq6+MHin/hIr6xtrLWJ41W/e2UxxXci/L5gQ/dJAGR0OBXz1P+1f7XlzW+q8qtb4ubW6327u38q738SnRzd5rOVdReGUVZpe9e7bvrt3aWtktNb8/qlvHpN6t9pMz/AGEfKocAvBn+BweoHrXtv7LN14r8KaWmqR+LtD8P6DMXdrTVZVe3IyOdgIZCcn5k56deK8LW6NtKTHsVbhdhRh8jA9vY+hqzqV/HdiMrHDGuzy1XYFdR/tep9+9fX5fmmKwFaOJwk3Ca6p2fp5+aej2I4j4Ny7PsDUyrNacalGas1OCmvJpPaXVSWq6H3PdftXeBtLt1mk1y0vYY2VJprDM8KN7EgOV64O315NdZ4M+J3h/4iwtJoOtWWqLGN8ghb54wemUOCOh6jtX5y20Wwk4X8B3rR0PxBeeF9RW70+6ms7lQcPE5Qt0yCR2PpX6tlfjfm9CsljacKsOtlySf/bybX4fcfytxN9A3hDHYGbyPFVsLiNeVyaq0/RxaU2uz9pdaOztY/SlJnV8H1P58cU6GYtuz696+Of2Zf2q2+H+uX1p4nury703Vp1kF28pkazfp3ydhyOnpX2BZyrqUMc1rNHcW82JI5ImBSRTjBDdh9a/eeD+MMHxDg/b4fSa+KF7uOvorp73WnTdH+evjT4L554b508uzT95QnrSrpWhVVle2rtKLdpRbutHs43sM4I7VEX5rF0T4h6F4j1mbT9P1jTb6+t1Mk1vb3CyyRANtO4L05rbeHYMYPTrX1NKpTqLmpyUlrs77bn5NisLicNP2eJpyhKydpJp2ezs+j6PZ9COR/Smh9pof5TTWOVrY57u+pMp3CnKoNRQtgUyS42t1NTYvmSRYdQOnNNx/s1AJy7feNO3t6mqFe58EeDvFz+Hb7y5v9Js3Z45ExhtjZDAfhnHp+NYfjvSZNFnGmyTGW3sh52nSA5xbvyFz6DgbegOfWqOpahJa38hLHzYXaM59M9P5UR63JrmkfYblxI0JY20h+8mcEqT6HA4r/O+Ox/0eV8MlU5ordXfy2a81r8my98NdO1HW/FVrZ6bazX15MCFt4ELPIAMsQB6Dn36c5qHWPCC2t/HcLJJa6NNdfZZrqS3fy7CXOSrjgjjJwOn4VqfAbWtJ8LfE7R9X1jU9T0qz0S5S/wB9hb+ZdSSI3yxqei7jnJPbjua+yP27P2kvht8dvgj4Psbu61iwvNStpdc0w2+mxSWxZ2EbLdqrKwdmjIDLyBuyeRXzOY57Xw2ZUcCqMpQqXXOk7Rau7eeiv1slqfLZ/nWNwuZYahhsPKcKmjnFP3Gk3tZqV0l1XLu77Hzp41/Yo8QeBvhBe+IJ411a4a/hSxj0tmukmtGR2a4baOARswO2DXiyQfIUZSuMq2Rgg+/Ar2zXf22fE2sfCzVfDMky6Pdxz2x0yfRla1jjtl+VoSQ2cEFf1zXi08rTzNI7SPJJyzM24n3J7nnqa0yH+1oxqLNeXm5vda/lsreX/Buejwm82qU6v9sKPNzaWvs0radl9973KWnBoppI5Mt2XPPFWmhWQYYd85xUc0ZJV1+8tWEcSICK+iqSb95H02FoxgnRlrba/b/gDY0WP5Vz+NOoPFRmZc1nqztcoRstiTP68VpaX4y1rRbL7LY6rqVpbtn91BdPGhY9OAQOTWT9oRR8xP51a8N6a3ibxJpmmx5jl1S7is42IyFaRwo/U5/Ct8LGs6qhQvzSaSs7Xb0SPOzfFZfTwtTEZhyulSTnLmV0lFNuWz2V3fe2x9C/8E7Phde2nirVvFbQyQ6XNbvZRu3W8ld0ZyvspXr33V9Y/ZljHyrjcATznnqaxfB/haz+Hfhew0XTYzHY6bCsEIPVgP4j7t1J7kk1pfaiuP4QPSv7l4R4bWSZXTwHM5SV3JvrJ6y+V9Ef4EeMniZPjri3E8QukqcJ2jTilrGnBWhf+8170uzbS0SHSRZ7VC1o2alM+Rn0p6vuXPrX0uzPzAri329c49R2oe1X+HLfWrSHJ+ahlXNPmY3BFFbfBp3kN/k1cWFWpPJFHML2fY/MjVWMt5MzEtI0jMc5ycnvmoI4yx9++favdPBHgHwv8XdVuFcFlmQRebHIUu9NdRzvjwPMU5+/gnjml8X/ALD+rWZMmi6la3qtkrFP8rDpgBgMH8QD9a/zy5Jcp/0Vf6x4GlXVLEv2cklutPv6dtbHh90Ptg80D95/EPX/ADillu5Lm2hVpHkS3Xy41Zs+WuScD0GSTgdya6Hxb8JvE/w8Ak1TR7q3iVsCdV3w++WXIA+oFZNh4XvNVnVtNtbi/il5RoIy+PVSQMZ+uM1Hkz3KdehJKrSnFwfW6tf12Rn3pNxCgX70Ywp7444/QUWx3RD/AGRjHpXfWP7OvibUoY5ls47RHB3C7nSNk98AlvyFehfDb9jPTdVKya5r103GWi06FVXjtvfP6LVQjKS5UeXi+IMuwjdaVRPuo+8/wX52PA8c8D9cVWef7LJ0AU9ga+tvFvwp+Hfwe0lZLjw3a6iLhCtu99LPK7sMddjKB16gCvJNd8ZeGpTJ/wAUD4XW3YhRPA1ziE/7Q3Z/nnmnyqGkmcuG4j+vr2uCoTt/M+VX9FzX/U8la7UKAGye9QyPxXeXOueDRdLFL4V82HnzJ7W9mhcnttDFhge9Tzaf8M9S05vLm8X6bd9VV/Inj/PaCaqMobnXXxGJdnUoz+ST/Jt/gcBbYfsD+FX9N1i58O6pbX9k2y70+RbmA4ztdDlTj64H41sx+FPDcnNnr14xYn5bmw2Bce4f+SmmeE/CFj4n1S1trrV7K1iuJFTcIZZ2Jz0CAA/nSjVcainTeqaa9UdfJSq4KpSxMHyyi1JSi2mmrNNWd015M+rIf28fB/8AwhOm38kOoTa1dQKbjS7e3bzIJejKWYBcbskdeDU/w8/a/sPGuspa3GhXmkxqjHz7m4Vt+3GQAB97kcV49pXw78FeC7qf+zftHivUraJnVdTDWawSLn50Q4VyOyvkED2rR8Z2/iyaxsdU+x6f4Z09dkj3Md7G01y5HVMN8uemBjqa/UMT4w8SylF06kIpWulBO/m3K7162aP4zwf0RfDClCVKWGqzc27Tq1pwcb6pQhDkukrJKUG7bu2p9Tabr1jq0skdreQ3DwgF1jcM4BGQSv4/pV2MtEu1v4Rxz196+DPCvj7UvgZ4xt9ZihvptRivi+pvMS0c0EnGw4blsHOT02ivvVBHNbRyQlTDKodMHJAIBGfzr938OeOHxFhJvERUa1N2kls0/have2zTXdeh/DX0jvAuPhzm2HWAqyq4PExbpuVuaMoW54Sto7KUHGVk3GWt3FtqkmaHlxUf3TSKck1+jn85D3umjXgUz7WaSTd/DTMN6UGeqPzo0mfUNG1Rby2kl091lLR3LHy0Byccnqv0r17Tv2vZNEsLdbi1/ti7jTEjxsYLcN2wT8xHt0rxnU7651vWpBJNdXlxuZVG4zSYz90L1x7V1nhD9mfx54+eNrLw3qcUMnIuLtPssX1y55/4CD/Kv8/MDluOxc/Z4KlKb/uxb/JH/RJxXmvDWXUIV+J8VSoJLepONO/o5STfot/PY1PFf7VnirxKJkGqNYWc3W2toEEZX0JYfNWZp/xz1K2hiiNwzRKcnzIEZfyxivS/DP8AwTw8QXbq2seINI01XHzrbRvcP+fyr+teg+Gv+CffgzT3ibUtS1zVm7p5yW6Nj2Rc/wDjxr7fAeEvE+KtKdFU0+s5Jfgrv8D+f8++lZ4PZPF0MNiPrDX2aNKUun88lCD9ee54lZ/tNfZJo92lWt0/QyiCOFgPb5SfyxXovgT9orSbllaH+0ElkGHt7dDj/vrZgf1r23w/+zl4H8LIosPCukhl6PNEJpPxZ8munttLh06PZbww2yr91YlChfpivt8D4F4t/wC9YuMfSDl+bifz7xN9N3hqa5MpySrPzqV407/9uxhVX3NfeeLan8V/D+s6buvJwIWYCSGS7hZ3B42lGVf6/hXlfjb4b+FtS1WeSzt9Q0+SIZC2lyrFFPP+rJ6ewOK+sL3wPpOuszX2kabdyYwXntY5OPQkjNc7qP7MHgXV7vzn8L2aSMckQNJDGfqi4U/lWGO8DMetcNiYS9YuP5c36/cPhv6a/DmGlzYrL8RRutfZzhUV+zUnSv8AM+I/EXgy3tbl/wCztTt73ZyySR+ROnsV6etc1LE0Um2QbSvUYP8A+qvpn42fsKat/aEt14Na3urEHetlLL5c0R7hCeq+x9K821n4DfFOS3FvJ4QvjHGNpMMEbZ+h3EfiMZr8uzPgvPMBXdGvhpu3WMZSi/NNJq3/AA25/afCPjxwPnuBp4zBZtQ95K8alSnSqQ8pQk4tNbbNdm1Zvy5pAPvblU9M96jmXzNuw4OeSa7r/hlvx8ybv+EN1r8Yl3VGn7KXxIun/d+E9aUDpvCpj9a4qfD2Zt/7tU/8Fy/yPqMT4l8Jwg3LNMLy+WIor8ec4GTxTPpC/Z7i58+HcR5e4qAmQSPTB9K0NU+OU2vWrWcs0kWmx3KXKwEDy4nXABHp07egrrr/APYc+J2sw8eGirf7d5AM/XLVJo//AATc+KGszKs1pomlxvwZJtQTj8I9x/SvZw3Beb19FhKl/wDBJL8Uj8vzjx04RwFTm/tbCuMdVatTm190m7+iZxuueOk8XXM97cS7raWYF8sdrsMDPPXivv79mnxsPiD8BvDOpN9/7J9mcH1iYx5/HbmvnXwz/wAEqLk2CJr/AIygjjVt3lWFqz8/7zkDnjnbX0l8Gvg3p/wQ8JnRdN1DV760LmVRfTCTyGP3ggAAUE84Hev2fwq4NzjKMdUxGLp8tOcWmnKN7pprRNvvvbc/ir6V3jZwdxrkGGy3J6yqYihVjNOMJqPK4SjNc0oxX8jVr3UdbHSySKJD83SkW581l+UKe4AptzASvIw2aj2mOX3r96UdLn8DczvqW0G8ml8v2psR4qYdKh7mhR8J+AtC8HBo9I0fTdN2tnMFssb/AItjcfxNbk0ann7zHqTyabDFh2IPCnvUkiKBkD71c9GjTpxVOlFRj2SsjrxmKr4mrKviZuc5byk22/Vttv7yjKdgx0B7VD9oMZ4qxcJuNVpYdycdc9q6Y2OOV7C/assN1J5uJMg8dqY8TO5JXjGBTQNx/wB3inYUWy6h8zGeauwbT96qcUbbFxVqM5H0rKSaK5mWfs3mHd/F0z3phtdrVJBNhc/3e3rTi+5w3rUozlqQ/Z9/3vmx09qja156flWxpemx6zA3lzCO6jGQjfdf/wDV/WoL7SrvSnXz4ZIywzngq30xRzq9kV7N2vYzo7YhvlB96aI2ik6da1IWWQDI2/jUdzaqTkGhSDlXQzZzlqjMYcelWLqHap5qqoOavcadhjWnOT8315qJrb5ug/KrhlB2imsQzUx76ldIcU7y6lKik2j1oCKJuk7/AO9Uhf5ea3JPAREz/wCmd+0X/wBepI/AO7/l8/OL/wCvXN7aJ2ywdbbl/Ff5nLsN705bZXHo3auik8AbX/4+8fSL/wCvSf8ACB/9Ph9j5fT9ar20bGX1WtfVafI5xrXkLTRpn7zjua6k+ACApN5n/tl/9erdp4ABf/j6/wDIQ/xpfWEkafVKr2X5HK2lq1tJtI3fWrhtd/KqPyrq4/h+rTKGuvvHr5X/ANerN58PY7STaty3I/55/wD16xeKhfVhLBVrfD+X+Zw7QGM+mfShYWkfaOp6Z6V2LeAVl/5ecY/6Z5/rVe58AiMf8fWef+eX/wBeqjiab2M/qNbt+K/zKnhHSLO+m8u6uGhkb5enDV0niH4aXGm6eslvdM1uOpPzcduPzrOHgxrUKyXShscHyun/AI9W54f1PULIi3kvGmjPHzA+/qTXHiKs+ZVKcvkehhsOrezqw1ezTX+ZwmraDNYXTEqu3AJKjiqfmHaeK9E13wG0kK3C3rKsi5aPyxg/rWKvw4W5j3fa2XJ6CP8A+vW1PGQaTb/A5ZZfWUrRX4r/ADOLuW3DpVMmu9vfhcgjbF4eB/zy/wDr1lN8Otrf8fn/AJC/+yrpjiqbRjLBV09Y/iv8zl1XPah0NdQPAGT/AMfQ49If/r06T4dqR/x+Hj/pl/8AXq/rFPuT9UrX+H8v8zlEj3N83SlKt/zz/Suoi+H27P8ApQ/GH/69Sf8ACAH/AJ/P/IX/ANlU/WqYvqVe1rfiv8z/2Q==" alt="" class="inline-block max-w-full cursor-pointer align-bottom" style="box-sizing: border-box; border: 0px solid oklch(0.92 0.03 255); margin: 0px; padding: 0px; outline-color: oklab(0.54 -0.0491756 -0.183526 / 0.5); vertical-align: bottom; display: inline-block; max-width: 100%; height: 189px; transform: translate(0px, 1px); width: 194px; cursor: move;">&nbsp;欢迎来到我的网站</b></p><h2 class="text-xl font-bold">
-      <b></b>
-    </h2>
-    <hr>
-            <!-- 百度搜索框模块 -->
-            <div class="max-w-lg mx-auto relative group">
-                <form action="https://www.baidu.com/s" method="get" target="_blank" class="flex items-center">
-                    <div class="relative w-full">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400 group-focus-within:text-blue-500 transition-colors"></i>
-                        </div>
-                        <input 
-                            type="text" 
-                            name="wd" 
-                            placeholder="百度搜索..." 
-                            class="block w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-l-full leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 sm:text-sm"
-                            required
-                        >
-                    </div>
-                    <button 
-                        type="submit" 
-                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-r-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 shadow-md hover:shadow-lg"
-                    >
-                        搜索
-                    </button>
-                </form>
+    <!-- 大标题已删除 -->
+
+    <!-- 百度搜索框模块 (左侧增加欢迎文字，搜索按钮缩放0.6) -->
+    <div class="max-w-lg mx-auto relative group" style="margin-bottom: 24px;">
+        <form action="https://www.baidu.com/s" method="get" target="_blank" class="flex items-center search-wrapper">
+            <!-- 左侧欢迎文字 -->
+            <span class="welcome-left">欢迎来到我的网页</span>
+            <div class="relative w-full" style="flex:1;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" name="wd" placeholder="百度搜索..." class="input-field" required="">
             </div>
-        </header>
+            <button type="submit" class="search-btn">
+                搜索
+            </button>
+        </form>
+    </div>
 
-    <p style="opacity: 1; box-shadow: none; transform: translate(2px, 0px); width: 1408px; height: 29px; border-radius: 8px; font-size: 24px; cursor: move;"><a href="https://huanyexuan.xyz/zhiren.html" class="text-primary underline cursor-pointer" style="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); color: rgb(255, 255, 255); border-radius: 12px; font-family: &quot;Noto Sans SC&quot;; font-size: 24px; font-weight: 400; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; cursor: move;">&nbsp;智人搜索&nbsp;</a></p>
-    <p style="cursor: move; border-radius: 16px;"><a href="https://yzrencn.github.io/1/help.html" class="text-primary underline cursor-pointer" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; cursor: text;">&nbsp;联系我&nbsp;</a></p>
-    <p style=""><a href="https://yzrhyx.lofter.com" class="text-primary underline cursor-pointer" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; cursor: move;">&nbsp;博客&nbsp;</a></p>
-    <p style="cursor: move;"><a href="https://yzrencn.github.io/1/rili.html" class="text-primary underline cursor-pointer" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; cursor: move;">&nbsp;日历&nbsp;</a></p>
-    <p style="cursor: move;"><a href="https://huanyexuan.xyz/game.html" class="text-primary underline cursor-pointer" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; cursor: move;">&nbsp;游戏&nbsp;</a></p>
-    <hr>
-    <p style="cursor: move;">
-      <b><strong class="font-bold" style="cursor: move; color: rgb(0, 0, 0); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none;">更多资源链接：</strong></b>
-      <a href="https://yangrenhyx.ysepan.com/" target="_blank" rel="noopener noreferrer" class="text-primary underline cursor-pointer" style="cursor: move; color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(79, 195, 247); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none;">
-        https://yangrenhyx.ysepan.com
-      </a>
+    <!-- 导航链接列表 (完全保留原有样式) -->
+    <p style="opacity: 1; box-shadow: none; transform: translate(2px, 0px); width: 100%; max-width: 1408px; height: auto; border-radius: 8px; font-size: 24px; cursor: default;">
+        <a href="https://huanyexuan.xyz/zhiren.html" class="text-primary underline" style="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); color: rgb(255, 255, 255); border-radius: 12px; font-family: &quot;Noto Sans SC&quot;; font-size: 24px; font-weight: 400; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
+            &nbsp;智人搜索&nbsp;
+        </a>
     </p>
-    <hr>
+    <p style="cursor: default; border-radius: 16px;">
+        <a href="https://yzrencn.github.io/1/help.html" class="text-primary underline" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
+            &nbsp;联系我&nbsp;
+        </a>
+    </p>
+    <p style="cursor: move;">
+        <a href="https://yzrhyx.lofter.com" class="text-primary underline" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
+            &nbsp;博客&nbsp;
+        </a>
+    </p>
+    <p style="cursor: default;">
+        <a href="https://yzrencn.github.io/1/rili.html" class="text-primary underline" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
+            &nbsp;日历&nbsp;
+        </a>
+    </p>
+    <p style="cursor: default;">
+        <a href="https://huanyexuan.xyz/game.html" class="text-primary underline" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
+            &nbsp;游戏&nbsp;
+        </a>
+    </p>
+
+    <hr style="transform: translate(0px, 4px);">
+
+    <!-- 更多资源链接 -->
+    <p style="cursor: default;">
+        <b><strong class="font-bold" style="cursor: default; color: rgb(0, 0, 0); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; transform: translate(0px, 4px);">更多资源链接：</strong></b>
+        <a href="https://yangrenhyx.ysepan.com/" target="_blank" rel="noopener noreferrer" class="text-primary underline" style="cursor: pointer; color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(79, 195, 247); font-size: 16px; font-weight: 400; font-family: 'Noto Sans SC'; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 2px 14px; margin: 0px; text-shadow: none; display: inline-block;">
+            https://yangrenhyx.ysepan.com
+        </a>
+    </p>
+
+    <hr style="transform: translate(0px, 4px);">
+
+    <!-- 版权及链接 -->
     <p>
-      <span style="color: oklch(0.446 0.043 257.281); background-color: oklch(1 0 0); font-size: medium;">出自：</span>
-      <a href="https://github.com/YzRenCN/" target="_blank" rel="noopener noreferrer" class="text-primary underline cursor-pointer">
-        <b><strong class="font-bold">YZRisME</strong></b>
-      </a>
+        <span style="color: oklch(0.446 0.043 257.281); background-color: oklch(1 0 0); font-size: medium; transform: translate(0px, 4px);">出自：</span>
+        <a href="https://github.com/YzRenCN/" target="_blank" rel="noopener noreferrer" class="text-primary underline">
+            <b><strong class="font-bold" style="transform: translate(0px, 4px);">YZRisME</strong></b>
+        </a>
     </p>
-    <p style="cursor: move;">
-      <b><strong class="font-bold">版权所有</strong></b>
-      </p><p style="transform: translate(7.5px, -11px); cursor: move;"><a href="https://yzrencn.github.io/1/001.html" class="text-primary underline cursor-pointer" style="cursor: move; color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none;">&nbsp;我的公开&nbsp;</a></p>
-      <p style="transform: translate(114px, -50px); cursor: move;"><a href="https://yzrencn.github.io/3/1.html" class="text-primary underline cursor-pointer" style="color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; cursor: move;">&nbsp;切换到繁体&nbsp;</a></p>
-      <p style="transform: translate(240px, -90px); cursor: move;"><a href="https://yzrencn.github.io/1/004.html" class="text-primary underline cursor-pointer" style="cursor: move; color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none;">&nbsp;AI新版&nbsp;</a></p>
-    <p></p>
-  
+    <p style="cursor: default;">
+        <b><strong class="font-bold" style="transform: translate(0px, 4px);">版权所有</strong></b>
+    </p>
 
-<div id="goog-gt-tt" class="VIpgJd-yAWNEb-L7lbkb skiptranslate" style="display: none; border-radius: 12px; margin: 0 0 0 -23px; padding: 0; font-family: 'Google Sans', Arial, sans-serif;" data-id=""><div id="goog-gt-vt" class="VIpgJd-yAWNEb-hvhgNd"><div class="VIpgJd-yAWNEb-hvhgNd-Ud7fr"><img src="https://fonts.gstatic.com/s/i/productlogos/translate/v14/24px.svg" width="24" height="24" alt=""><div class=" VIpgJd-yAWNEb-hvhgNd-IuizWc-i3jM8c " dir="ltr">原文</div></div><div class="VIpgJd-yAWNEb-hvhgNd-k77Iif"><div id="goog-gt-original-text" class="VIpgJd-yAWNEb-nVMfcd-fmcmS VIpgJd-yAWNEb-hvhgNd-axAV1"></div></div><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid ltr"><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od ltr" dir="ltr"><div class="VIpgJd-yAWNEb-hvhgNd-UTujCb">请对此翻译评分</div><div class="VIpgJd-yAWNEb-hvhgNd-eO9mKe">您的反馈将用于改进谷歌翻译</div></div><div class="VIpgJd-yAWNEb-hvhgNd-xgov5 ltr"><button id="goog-gt-thumbUpButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="翻译质量很棒" aria-label="翻译质量很棒" aria-pressed="false"><span id="goog-gt-thumbUpIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7H2v13h16c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM7 18H4V9h3v9zm14-7l-3 7H9V8l4.34-4.34L12 9h9v2z"></path></svg></span><span id="goog-gt-thumbUpIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7v13h11c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM5 7H1v13h4V7z"></path></svg></span></button><button id="goog-gt-thumbDownButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="翻译质量很差" aria-label="翻译质量很差" aria-pressed="false"><span id="goog-gt-thumbDownIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7h5V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zM17 6h3v9h-3V6zM3 13l3-7h9v10l-4.34 4.34L12 15H3v-2z"></path></svg></span><span id="goog-gt-thumbDownIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zm16 0h4V4h-4v13z"></path></svg></span></button></div></div><div id="goog-gt-votingHiddenPane" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><form id="goog-gt-votingForm" action="//translate.googleapis.com/translate_voting?client=te_lib" method="post" target="votingFrame" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><input type="text" name="sl" id="goog-gt-votingInputSrcLang"><input type="text" name="tl" id="goog-gt-votingInputTrgLang"><input type="text" name="query" id="goog-gt-votingInputSrcText"><input type="text" name="gtrans" id="goog-gt-votingInputTrgText"><input type="text" name="vote" id="goog-gt-votingInputVote"></form><iframe name="votingFrame" frameborder="0"></iframe></div></div></div></body></html>
+    <!-- 底部的三个灰底圆角按钮 (保留所有 transform 定位，但为了响应式不重叠，改为相对定位+内联块) -->
+    <div class="nav-btn-group">
+        <a href="https://yzrencn.github.io/1/001.html" class="text-primary underline" style="color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 4px 16px; margin: 0px; text-shadow: none; display: inline-block; transform: translate(0px, 4px);">
+            &nbsp;我的公开&nbsp;
+        </a>
+        <a href="https://yzrencn.github.io/3/1.html" class="text-primary underline" style="color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 4px 16px; margin: 0px; text-shadow: none; display: inline-block; transform: translate(0px, 4px);">
+            &nbsp;切换到繁体&nbsp;
+        </a>
+        <a href="https://yzrencn.github.io/1/004.html" class="text-primary underline" style="color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: 'Noto Sans SC'; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 4px 16px; margin: 0px; text-shadow: none; display: inline-block;">
+            &nbsp;AI新版&nbsp;
+        </a>
+    </div>
+
+    <!-- 保留谷歌翻译相关的隐藏元素 (但已通过CSS隐藏) -->
+    <div id="goog-gt-tt" class="VIpgJd-yAWNEb-L7lbkb skiptranslate" style="display: none; border-radius: 12px; margin: 0 0 0 -23px; padding: 0; font-family: 'Google Sans', Arial, sans-serif;" data-id=""></div>
+</body>
+</html>
