@@ -52,7 +52,7 @@
         }
 
 
-        /* 保留原有块级元素的背景色、圆角、阴影等 */
+ 
         h2.text-xl {
             font-size: 1.5rem;
             font-weight: 700;
@@ -66,7 +66,6 @@
             vertical-align: middle;
         }
 
-        /* 导航链接块（原有灰底圆角按钮）保留 */
         .nav-btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -91,7 +90,7 @@
             transform: translateY(-1px);
         }
 
-        /* 保留其他原有色块链接 (棕色/蓝色) */
+
         a[style*="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72)"] {
             display: inline-block;
             padding: 2px 14px;
@@ -122,7 +121,7 @@
             transform: scale(1.02);
         }
 
-        /* 其他微调：防止文字溢出，改善可读性 */
+
         .inline-block {
             display: inline-block;
         }
@@ -139,15 +138,13 @@
             vertical-align: bottom;
         }
 
-        /* 保留所有原有内联样式，不做覆盖，只做增强 */
-        /* 针对视觉编辑器注入的样式，我们保留但不干扰 */
         [data-hve-hovered] {
             outline: 2px dashed #cc785c !important;
             outline-offset: 2px !important;
             cursor: pointer !important;
         }
         
-        /* 搜索框左侧欢迎文字 */
+
         .welcome-left {
             font-size: 24px;
             font-weight: 400;
@@ -158,7 +155,7 @@
             font-family: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* 优化移动端显示 */
+
         @media (max-width: 640px) {
             body {
                 padding: 12px 16px;
@@ -189,19 +186,17 @@
             }
         }
 
-        /* 保留原有内联样式中的 transform 定位，但避免覆盖 */
-        /* 用户自定义的 transform 保留 */
+
     </style>
 </head>
 <body class="hve-web-active hve-edit-mode">
-            <!-- 左侧欢迎文字 -->
+
             <b><strong class="font-bold" style="font-size: 24pt;">欢迎来到我的网页</strong></b>
         </form>
     </div>
 
      <hr style="transform: translate(0px, 4px);">
-    
-    <!-- 导航链接列表 (完全保留原有样式) -->
+
     <p style="opacity: 1; box-shadow: none; transform: translate(2px, 0px); width: 100%; max-width: 1408px; height: auto; border-radius: 8px; font-size: 24px; cursor: default;">
         <a href="https://huanyexuan.xyz/zhiren.html" class="text-primary underline" style="background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); color: rgb(255, 255, 255); border-radius: 12px; font-family: &quot;Noto Sans SC&quot;; font-size: 24px; font-weight: 400; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
             &nbsp;智人搜索&nbsp;
@@ -212,7 +207,7 @@
             &nbsp;联系我&nbsp;
         </a>
     </p>
-    <p style="cursor: move;">
+   <p style="cursor: default;"> 
         <a href="https://yzrhyx.lofter.com" class="text-primary underline" style="color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(121, 85, 72); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; margin: 0px; text-shadow: none; display: inline-block; padding: 2px 14px; transform: translate(0px, 4px);">
             &nbsp;博客&nbsp;
         </a>
@@ -230,7 +225,6 @@
 
     <hr style="transform: translate(0px, 4px);">
 
-    <!-- 更多资源链接 -->
     <p style="cursor: default;">
         <b><strong class="font-bold" style="cursor: default; color: rgb(0, 0, 0); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); font-size: 24px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 0px; margin: 0px; text-shadow: none; transform: translate(0px, 4px);">更多资源链接：</strong></b>
         <a href="https://yangrenhyx.ysepan.com/" target="_blank" rel="noopener noreferrer" class="text-primary underline" style="cursor: pointer; color: rgb(255, 255, 255); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(79, 195, 247); font-size: 16px; font-weight: 400; font-family: 'Noto Sans SC'; font-style: normal; text-decoration: none solid rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 12px; border: 0px none rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 2px 14px; margin: 0px; text-shadow: none; display: inline-block;">
@@ -240,7 +234,7 @@
 
     <hr style="transform: translate(0px, 4px);">
 
-    <!-- 版权及链接 -->
+
     <p>
             <b><strong class="font-bold" style="transform: translate(0px, 4px);">YzRenCN</strong></b>
         </a>
@@ -249,7 +243,6 @@
         <b><strong class="font-bold" style="transform: translate(0px, 4px);">版权所有</strong></b>
     </p>
 
-    <!-- 底部的三个灰底圆角按钮 (保留所有 transform 定位，但为了响应式不重叠，改为相对定位+内联块) -->
     <div class="nav-btn-group">
         <a href="https://yzrencn.github.io/1/001.html" class="text-primary underline" style="color: rgb(119, 119, 119); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(187, 187, 187); font-size: 16px; font-weight: 400; font-family: &quot;Noto Sans SC&quot;; font-style: normal; text-decoration: rgb(119, 119, 119); text-align: start; line-height: normal; letter-spacing: normal; border-radius: 50px; border: 0px rgb(119, 119, 119); box-shadow: none; opacity: 1; padding: 4px 16px; margin: 0px; text-shadow: none; display: inline-block; transform: translate(0px, 4px);">
             &nbsp;我的公开&nbsp;
@@ -261,8 +254,5 @@
             &nbsp;AI新版&nbsp;
         </a>
     </div>
-
-    <!-- 保留谷歌翻译相关的隐藏元素 (但已通过CSS隐藏) -->
-    <div id="goog-gt-tt" class="VIpgJd-yAWNEb-L7lbkb skiptranslate" style="display: none; border-radius: 12px; margin: 0 0 0 -23px; padding: 0; font-family: 'Google Sans', Arial, sans-serif;" data-id=""></div>
 </body>
 </html>
