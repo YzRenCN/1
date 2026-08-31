@@ -1,24 +1,291 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <p>
-      <span style="font-size: 24pt;">很抱歉,自动功能暂未开放,您需要发送邮件到</span>
-        <span style="font-size: 24pt;">hyx@aster.cx</span>
-      </a>
-      <span style="font-size: 24pt;">转人工（通常在24小时内发送）,标题为：购买TG-(国家电话区号)</span>
-      <span style="font-size: 12pt;">（中国及小众国家暂缺）</span>
-      <span style="font-size: 24pt;">价格一律10元。</span>
-    </p>
-    <p><br /></p>
-    <p>
-      <a href="https://x.com/TGID-10RMB" class="text-primary underline cursor-pointer">
-        <span style="font-size: 24pt;">返回</span>
-      </a>
-    </p>
-    <p><br /></p>
-  </body>
+    <title>TG购买 · 转人工服务</title>
+    <style>
+        /* ---------- 全局重置 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8fafc;
+            font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .card {
+            max-width: 720px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 48px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06), 0 8px 20px rgba(0, 0, 0, 0.03);
+            transition: box-shadow 0.25s ease;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 32px 20px;
+                border-radius: 20px;
+            }
+        }
+
+        /* ---------- 主内容 ---------- */
+        .message {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: #1e293b;
+            letter-spacing: 0.01em;
+        }
+
+        .message .highlight {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .message .email {
+            display: inline-block;
+            font-weight: 600;
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+            cursor: default;
+        }
+
+        .message .email:hover {
+            color: #1d4ed8;
+            border-bottom-color: #1d4ed8;
+        }
+
+        .message .note-small {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            background: #f1f5f9;
+            padding: 2px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 0 4px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .message .price-tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            font-weight: 600;
+            padding: 0 14px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            margin: 0 2px;
+        }
+
+        /* ---------- 分隔装饰 ---------- */
+        .divider {
+            margin: 32px auto 28px;
+            width: 60px;
+            height: 2px;
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+
+        /* ---------- 返回按钮 ---------- */
+        .btn-back {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 12px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+            letter-spacing: 0.02em;
+            border: 1px solid transparent;
+        }
+
+        .btn-back:hover {
+            background: #dbeafe;
+            color: #1d4ed8;
+            transform: scale(1.02);
+        }
+
+        .btn-back:active {
+            transform: scale(0.97);
+        }
+
+        /* ---------- 辅助 ---------- */
+        .mt-2 {
+            margin-top: 6px;
+        }
+
+        .text-muted {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        /* 让邮件地址可复制（视觉提示） */
+        .email-copy-hint {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #94a3b8;
+            background: #f1f5f9;
+            padding: 0 10px;
+            border-radius: 40px;
+            margin-left: 6px;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 1.1rem;
+            }
+            .message .price-tag {
+                font-size: 1rem;
+            }
+            .btn-back {
+                padding: 10px 32px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" role="main" aria-label="购买提示">
+
+        <div class="message">
+
+            <p>
+                <span class="highlight">很抱歉，自动功能暂未开放，</span><br />
+                <span>您需要发送邮件至</span>
+                <span class="email" aria-label="邮箱地址：hyx at aster.cx">hyx@aster.cx</span>
+                <span class="email-copy-hint">📋 复制</span>
+                <span>转人工</span>
+                <span class="note-small">通常在24小时内发送</span>
+            </p>
+
+            <p style="margin-top: 18px;">
+                <span>标题为：</span>
+                <span class="highlight">购买TG-（国家电话区号）</span>
+                <span class="note-small" style="margin-left: 8px;">中国及小众国家暂缺</span>
+            </p>
+
+            <p style="margin-top: 14px;">
+                <span>价格一律 </span>
+                <span class="price-tag">¥10 元</span>
+            </p>
+
+        </div>
+
+        <div class="divider" aria-hidden="true"></div>
+
+        <p>
+            <a href="https://x.com/TGID-10RMB" class="btn-back" target="_blank" rel="noopener noreferrer">
+                ← 返回
+            </a>
+        </p>
+
+        <p class="text-muted mt-2" style="margin-top: 20px;">
+            <span style="font-size: 0.75rem;">🔒 人工服务 · 安全可靠</span>
+        </p>
+
+    </div>
+
+    <!-- 复制邮箱的轻量交互（纯前端，不依赖第三方） -->
+    <script>
+        (function() {
+            const emailEl = document.querySelector('.email');
+            const hintEl = document.querySelector('.email-copy-hint');
+            if (!emailEl || !hintEl) return;
+
+            const emailText = emailEl.textContent.trim();
+
+            // 复制功能
+            function copyEmail() {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(emailText).then(() => {
+                        showFeedback('✅ 已复制');
+                    }).catch(() => {
+                        fallbackCopy();
+                    });
+                } else {
+                    fallbackCopy();
+                }
+            }
+
+            function fallbackCopy() {
+                const textarea = document.createElement('textarea');
+                textarea.value = emailText;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showFeedback('✅ 已复制');
+                } catch (_) {
+                    showFeedback('⚠️ 请手动复制');
+                }
+                document.body.removeChild(textarea);
+            }
+
+            let feedbackTimer = null;
+
+            function showFeedback(msg) {
+                const original = hintEl.textContent;
+                hintEl.textContent = msg;
+                hintEl.style.background = '#e0f2fe';
+                hintEl.style.color = '#0369a1';
+                clearTimeout(feedbackTimer);
+                feedbackTimer = setTimeout(() => {
+                    hintEl.textContent = original;
+                    hintEl.style.background = '';
+                    hintEl.style.color = '';
+                }, 2000);
+            }
+
+            // 点击复制
+            hintEl.addEventListener('click', function(e) {
+                e.stopPropagation();
+                copyEmail();
+            });
+
+            // 让整个邮箱区域可点击（更友好）
+            emailEl.addEventListener('click', function(e) {
+                e.stopPropagation();
+                copyEmail();
+            });
+
+            // 键盘可访问性
+            hintEl.setAttribute('role', 'button');
+            hintEl.setAttribute('tabindex', '0');
+            hintEl.style.cursor = 'pointer';
+
+            hintEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    copyEmail();
+                }
+            });
+
+        })();
+    </script>
+
+</body>
 </html>
